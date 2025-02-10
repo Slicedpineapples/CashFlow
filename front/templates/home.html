@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Dashboard</title>
+    <link id="theme-stylesheet" rel="stylesheet" href="../style/style1.css">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <div class="title">Hello, <span id="userName"></span></div>
+            <div id="fullDate"></div>
+            <button class="toggle-button" id="toggle-button" onclick="toggleButton()"></button>
+            <button class="logout-btn" onclick="location.href='../index.html'; sessionStorage.removeItem('sessionId')">Logout</button>
+        </div>
+        
+
+        <div class="content">
+            <div class="section">
+                <h2>Income Statement</h2>
+
+                <div class="card income-card"onclick="plusIncome()">
+                    <div class="label">Income</div>
+                    <div class="add-btn" onclick="plusIncome()">+</div>
+                </div>
+                <div id="income-extension" style="display:none;"></div>
+
+                <div class="card expense-card"onclick="plusExpense()">
+                    <div class="label">Expenses</div>
+                    <div class="add-btn" onclick="plusExpense()">+</div>
+                </div>
+                <div id="expense-extension" style="display:none;"></div>
+            </div>
+
+            <div class="section">
+                <h2> Balance Sheet</h2>
+                <div class="card asset-card"onclick="plusAsset()">
+                    <div class="label">Assets</div>
+                    <div class="add-btn" onclick="plusAsset()">+</div>
+                </div>
+                <div id="asset-extension" style="display:none;"></div>
+                
+                <div class="card liability-card"onclick="plusLiability()">
+                    <div class="label">Liabilities</div>
+                    <div class="add-btn"onclick="plusLiability()">+</div>
+                </div>
+                <div id="liability-extension" style="display:none;"></div>
+            </div>
+
+            <div class="section">
+                <h2> Financial Standing</h2>
+                <div class="card summary-card"onclick="summary()">
+                    <div class="label">Summary</div>
+                    <div class="add-btn" onclick="summary()">+</div>
+                </div>
+                <div id="summary-extension" style="display:none;"></div>
+            
+                <div class="card reports-card"onclick="generateReport()">
+                <div class="label">Generate reports</div>
+                <div class="add-btn"onclick="generateReport()">+</div>
+            </div>
+            <div id="report-extension" style="display:none;"></div>
+            </div>
+    </div>
+        </div>
+    </div>
+    <script src="../static/dashboard.js"></script>
+    <script src="../static/reports.js"></script>
+    <script src="../static/summary.js"></script>
+</body>
+</html>

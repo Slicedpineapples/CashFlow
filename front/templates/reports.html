@@ -1,0 +1,24 @@
+<div id="Report">
+    <h2>Reports</h2>
+    <form id="reportForm">
+        <div class="form-group">
+            <label for="reportType">Report Type:</label>
+            <select id="reportType" name="reportType" required>
+                <option value="Income">Income</option>
+                <option value="Expenses">Expenses</option>
+                <option value="Assets">Assets</option>
+                <option value="Liabilities">Liabilities</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="start">Start Date:</label>
+            <input type="date" id="start" name="start" required>
+        </div>
+        <div class="form-group">
+            <label for="end">End Date:</label>
+            <input type="date" id="end" name="end" required>
+        </div>
+        <button type="submit">Get Reports</button>
+    </form>
+    <!-- <div id="reportMessage"></div> -->
+</div>
