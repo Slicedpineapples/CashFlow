@@ -14,7 +14,8 @@ from utils import Convert, seed, makeDir
 
 makeDir() #creting the directories
 
-seed() # seeding the database
+seed() # seeding the database 
+
 
 # app = Flask(__name__)
 app = Flask(__name__)

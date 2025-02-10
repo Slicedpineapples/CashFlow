@@ -13,7 +13,7 @@ def mainApp():
     global userId
     global userName
 
-    print("Welcome to MoneyMaster")
+    print("Welcome to CashFlow")
     print("1. Sign up")
     print("2. Login")
     print("Q. Exit")

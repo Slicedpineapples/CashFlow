@@ -18,9 +18,9 @@ def send_email(to_email, attachment_path, end):
     password = os.getenv('PASSWORD')
 
     subject = f'Summary Report for {end}'
-    body = """Greetings from MoneyMaster!\n\nPlease see your attached financial report.\n\nBest regards,\nMoneyMaster Team"""
+    body = """Greetings from CashFlow!\n\nPlease see your attached financial report.\n\nBest regards,\CashFlow Team"""
 
-    display_name = "MoneyMaster"
+    display_name = "CashFlow"
     login = from_email
 
     # Create a MIME message
