@@ -129,5 +129,5 @@ def seed():
     except Error as err:
         print(f"Something went wrong: {err}")
 
-seed() # Debugging only
+# seed() # Debugging only
 
