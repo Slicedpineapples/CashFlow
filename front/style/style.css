@@ -1,0 +1,385 @@
+:root {
+    --transition-duration: 0.7s;
+    --transition-property: all;
+    --transition-timing-function: ease;
+    --transition: var(--transition-property) var(--transition-duration) var(--transition-timing-function);
+}
+
+
+
+
+
+
+
+
+
+
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333; /* Text color for light mode */
+    transition: var(--transition);
+}
+
+/* Dashboard Container */
+.dashboard {
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    transition: var(--transition);
+}
+
+.header .title {
+    font-size: 24px;
+    color: #333;
+    transition: var(--transition);
+}
+
+.header .month {
+    font-size: 18px;
+    color: #555;
+    transition: var(--transition);
+}
+
+/* Buttons */
+.logout-btn, .toggle-button, #Add-Income button, #Add-Expense button, #Add-Asset button, #Add-Liability button, #reportForm button, #Summary button {
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    background-color: var(--transition);
+    color: var(--button-text-color);
+    transition:  var(--transition);
+}
+
+.logout-btn {
+    background-color: red;
+    color: #fff;
+    transition: var(--transition);
+}
+
+.logout-btn:hover {
+    background-color: darkred;
+    transition: var(--transition);
+}
+
+#Add-Income button, #Add-Expense button, #Add-Asset button, #Add-Liability button, #reportForm button, #Summary button{
+    background-color: #007BFF;
+    color: #fff;
+}
+
+#Add-Income button:hover, #Add-Expense button:hover, #Add-Asset button:hover, #Add-Liability button:hover, #reportForm button:hover, #Summary button:hover{
+    background-color: #0056b3;
+}
+
+/* Content Section */
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    transition: var(--transition);
+}
+
+.section {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    transition: var(--transition);
+}
+
+.section h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #555;
+    transition: var(--transition);
+}
+
+/* Cards */
+.card {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: var(--transition);
+    transition: var(--transition);
+}
+
+.card .label {
+    font-size: 16px;
+    color: #333;
+    transition: var(--transition);
+}
+
+.card .add-btn {
+    cursor: pointer;
+    color: #007BFF;
+    font-size: 18px;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+/* Specific Card Types */
+.income-card {
+    background-color: #e3f2fd;
+    border: 1px solid #90caf9;
+    transition: var(--transition);
+}
+
+.expense-card {
+    background-color: #ffebee;
+    border: 1px solid #ef9a9a;
+    transition: var(--transition);
+}
+
+.asset-card {
+    background-color: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    transition: var(--transition);
+}
+
+.liability-card {
+    background-color: #fff3e0;
+    border: 1px solid #ffcc80;
+    transition: var(--transition);
+}
+
+.summary-card {
+    background-color: #ffeaf2;
+    border: 1px solid #ffcc80;
+    transition: var(--transition);
+}
+
+.reports-card {
+    background-color: rgb(246, 218, 245);
+    border: 1px solid rgb(223, 170, 254);
+    transition: var(--transition);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        align-items: center;
+        transition: var(--transition);
+    }
+    .section {
+        width: 100%;
+        padding: 0 10px;
+        transition: var(--transition);
+    }
+}
+
+@media (max-width: 480px) {
+    .header .title {
+        font-size: 20px;
+        transition: var(--transition);
+    }
+    .header .month {
+        font-size: 16px;
+        transition: var(--transition);
+    }
+    .logout-btn {
+        font-size: 12px;
+        padding: 8px 12px;
+        transition: var(--transition);
+    }
+    .section h2 {
+        font-size: 18px;
+        transition: var(--transition);
+    }
+    .card .label {
+        font-size: 14px;
+        transition: var(--transition);
+    }
+    .card .add-btn {
+        font-size: 16px;
+        transition: var(--transition);
+    }
+}
+
+/* Form Styles */
+#Add-Income, #Add-Expense, #Add-Asset, #Add-Liability, #Report, #Summary {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-top: 10px;
+    transition: var(--transition);
+}
+
+#Add-Income h2, #Add-Expense h2, #Add-Asset h2, #Add-Liability h2, #Report h2, #Summary h2{
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #555;
+    transition: var(--transition);
+}
+
+#Add-Income form, #Add-Expense form, #Add-Asset form, #Add-Liability form, #Report form, #Summary form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: var(--transition);
+}
+
+#Add-Income .form-group, #Add-Expense .form-group, #Add-Asset .form-group, #Add-Liability .form-group, #Report .form-group, #Summary .form-group{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+    transition: var(--transition);
+}
+
+#Add-Income label, #Add-Expense label, #Add-Asset label, #Add-Liability label, #Report label, #Summary label{
+    font-size: 16px;
+    color: #333;
+    margin-right: 10px;
+    flex: 1;
+    transition: var(--transition);
+}
+
+#Report select {
+    flex: 2;
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    transition: var(--transition);
+}
+
+#Add-Income input, #Add-Expense input, #Add-Asset input, #Add-Liability input, #Report input, #Summary input{
+    flex: 2;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: var(--transition);
+}
+
+/* Message Styles */
+#incomeMessage, #expenseMessage, #assetMessage, #liabilityMessage, #reportMessage, #summaryMessage {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    transition: var(--transition);
+    
+}
+
+/* Report Styles */
+#Report {
+    max-width: 500px;
+    margin: 0 auto;
+    transition: var(--transition);
+}
+
+#Report h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    transition: var(--transition);
+}
+
+
+/* Report Table Container */
+#reportTableContainer {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: var(--transition);
+}
+
+/* Report Table Styles */
+#reportTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    transition: var(--transition);
+}
+
+#reportTable thead {
+    background-color: #f4f4f4;
+    transition: var(--transition);
+}
+
+#reportTable th, #reportTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    transition: var(--transition);
+}
+
+#reportTable th {
+    font-weight: bold;
+    color: #333;
+    transition: var(--transition);
+}
+
+#reportTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+    transition: var(--transition);
+}
+
+#reportTable tbody tr:hover {
+    background-color: #f1f1f1;
+    transition: var(--transition);
+}
+
+#reportExtension .total-income {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    transition: var(--transition);
+}
+/* Light Mode */
+.toggle-button {
+    width: 30px;
+    height: 30px;
+    background-image: url(../assets/light.svg);
+    animation: fadeIn 1s;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    background-color: whitesmoke;
+}
