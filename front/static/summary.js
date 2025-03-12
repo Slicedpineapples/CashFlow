@@ -24,6 +24,14 @@ function summary() {
                     summaryExtension.appendChild(child);
                 }
 
+                // Auto-fill the currency input field
+                const storedCurrency = sessionStorage.getItem('currency');
+                let currencyInput = document.getElementById('Currency');
+
+                if (currencyInput && storedCurrency) {
+                    currencyInput.value = storedCurrency;
+                }
+
                 const userID = sessionStorage.getItem('sessionId');
                 const email = sessionStorage.getItem('email');
 
@@ -33,40 +41,30 @@ function summary() {
                     e.preventDefault();
                     const month = document.getElementById('Month').value;
                     const currency = document.getElementById('Currency').value;
-                    //Debugging only
-                    // console.log('Currency:', currency);
-                    // console.log('Month:', month);
 
                     if (!month) {
-                        // console.log('Month is not selected');
                         document.getElementById('summaryMessage').innerText = 'Please select a month';
                         setTimeout(() => {
                             document.getElementById('summaryMessage').innerText = '';
                         }, 1500);
-                        
                         return;
                     }
-                    //Date construction
+
+                    // Date construction
                     const start = new Date(month);
                     start.setDate(1);
                     const end = new Date(start);
                     end.setMonth(end.getMonth() + 1);
                     end.setDate(0);
-                    //Debugging only
-                    // console.log('Start Date:', start);
-                    // console.log('End Date:', end);
 
-                    //Fomratting the dates to be sent to the server
+                    // Formatting the dates
                     const startDate = start.toISOString().split('T')[0];
                     const endDate = end.toISOString().split('T')[0];
 
-                    // console.log('Start Date:', startDate);
-                    // console.log('End Date:', endDate);
+                    // Create JSON data object
+                    const data = { userId: userID, email: email, start: startDate, end: endDate, currency: currency };
 
-                    //jsonify the data
-                    const data = { userId: userID, email: email, start: startDate, end: endDate, currency: currency};
-                    // console.log(data);
-
+                    // Send data to API
                     const response = await fetch(apiUrl + 'apiGetSummary', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -76,11 +74,10 @@ function summary() {
                     document.getElementById('summaryMessage').innerText = result.message;
                     setTimeout(() => {
                         document.getElementById('summaryMessage').innerText = '';
-                    },2000);
+                    }, 2000);
                     setTimeout(() => {
                         document.getElementById('summaryForm').reset();
                     }, 1000);
-
                 });
             });
     }
@@ -88,28 +85,28 @@ function summary() {
     summaryExtension.style.display = summaryExtension.style.display === "none" ? "block" : "none";
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const currencySelect = document.getElementById('Currency');
+// document.addEventListener('DOMContentLoaded', function() {
+//     const currencySelect = document.getElementById('Currency');
 
-    // Fetch the list of currencies from the API
-    fetch('https://api.exchangerate-api.com/v4/latest/USD')
-        .then(response => response.json())
-        .then(data => {
-            const currencies = data.rates;
-            for (const currency in currencies) {
-                const option = document.createElement('option');
-                option.value = currency;
-                option.textContent = currency;
-                currencySelect.appendChild(option);
-            }
-            // console.log('Currencies loaded:', currencies);
-        })
-        .catch(error => {
-            console.error('Error fetching the currency data:', error);
-            const option = document.createElement('option');
-            option.value = 'error';
-            option.textContent = 'Error loading currencies';
-            currencySelect.appendChild(option);
-        });
-});
+//     // Fetch the list of currencies from the API
+//     fetch('https://api.exchangerate-api.com/v4/latest/USD')
+//         .then(response => response.json())
+//         .then(data => {
+//             const currencies = data.rates;
+//             for (const currency in currencies) {
+//                 const option = document.createElement('option');
+//                 option.value = currency;
+//                 option.textContent = currency;
+//                 currencySelect.appendChild(option);
+//             }
+//             // console.log('Currencies loaded:', currencies);
+//         })
+//         .catch(error => {
+//             console.error('Error fetching the currency data:', error);
+//             const option = document.createElement('option');
+//             option.value = 'error';
+//             option.textContent = 'Error loading currencies';
+//             currencySelect.appendChild(option);
+//         });
+// });
 
