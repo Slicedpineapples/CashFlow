@@ -3,7 +3,7 @@ import datetime
 import requests
 
 def incomeSource(sourceName, amount):
-    # sourceName = input("Enter the name of the income source: ") 
+    # sourceName = conninput("Enter the name of the income source: ") 
     # amount = input("Enter the amount of income: ")
     sourceName = sourceName
     amount = amount
