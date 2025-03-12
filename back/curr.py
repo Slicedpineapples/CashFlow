@@ -17,9 +17,9 @@ def get_currency(country_name: str):
     if not currencies:
         return f"Could not find currency information for: {country_name}"
     
-    currency_code = list(currencies.keys())[0]  # Get the first currency code
+    currency_code = list(currencies.keys())[0]
     return currency_code
 
-# Example usage
-print(get_currency("keNYA"))
-print(get_currency("hungary"))
+# Debuggig only
+# print(get_currency("keNYA"))
+# print(get_currency("hungary"))

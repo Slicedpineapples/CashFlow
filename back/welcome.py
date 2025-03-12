@@ -20,7 +20,7 @@ def signUp(username, email, password, phone):
         ip_response = requests.get('https://api.ipify.org?format=json')
         ip_data = ip_response.json()
         user_ip = ip_data['ip']
-        geolocation_response = requests.get(f'https://ipapi.co/{user_ip}/region')
+        geolocation_response = requests.get(f'https://ipapi.co/{user_ip}/country_name')
         region = geolocation_response.text
 
         signup = connect()  # Assuming connect returns a database connection
@@ -59,7 +59,7 @@ def login(username, password):
         connection = connect()
         cursor = connection.cursor()
         
-        sql = "SELECT id, userName, email FROM user WHERE userName = %s AND password = %s"
+        sql = "SELECT id, userName, email, region FROM user WHERE userName = %s AND password = %s"
         values = (username, password)
         cursor.execute(sql, values)
         result = cursor.fetchone()
@@ -67,8 +67,9 @@ def login(username, password):
         if result:
             userid = result[0]
             email = result[2]
+            region = result[3]
             message = "Login successful!"
-            return userid, email, message
+            return userid, email, region, message
 
         else:
             message = "Invalid username or password"
@@ -83,5 +84,5 @@ def login(username, password):
         if connection:
             connection.close()
 
-# print(login("helix", "helix")) #Debugging only
+# print(login("pecs1", "pecs")) #Debugging only
 # print(signUp("webdev", "webde@mail.com", "webdev", "1234567890")) #Debugging only
