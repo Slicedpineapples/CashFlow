@@ -4,12 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const username = sessionStorage.getItem("userName");
         const email = sessionStorage.getItem("email");
         const phone = sessionStorage.getItem("phone");
+        const country = sessionStorage.getItem("country");
         const currency = sessionStorage.getItem("currency");
 
         document.getElementById("userName").innerText = username || "User";
         document.getElementById("profileUsername").innerText = username || "Not Set";
         document.getElementById("profileEmail").innerText = email || "Not Set";
         document.getElementById("profilePhone").innerText = phone || "Not Set";
+        document.getElementById("profileCountry").innerText = country||"Not Set";
+        document.getElementById("profileCurrency").innerText = currency || "Not Set";
         document.getElementById("profilePassword").innerText = "********"; // Masked for security
     }
 

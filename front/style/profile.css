@@ -1,0 +1,168 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f4f7fc;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* Profile Container - Full width on large screens */
+.profile {
+    width: 100%;
+    max-width: 1200px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #007bff;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 0;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+#fullDate {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.home-button {
+    width: 40px;
+    height: 40px;
+    background: url('home-icon.svg') no-repeat center;
+    background-size: cover;
+    border: none;
+    cursor: pointer;
+}
+
+/* Content Area */
+.content {
+    flex-grow: 1;
+    padding: 20px 30px;
+}
+
+/* Profile Section */
+.section h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Profile Cards */
+.card {
+    background: #f9fbff;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.01);
+}
+
+.label {
+    font-size: 18px;
+    font-weight: 500;
+    color: #444;
+}
+
+.value {
+    font-size: 18px;
+    color: #222;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.value:hover {
+    color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    .profile {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .header {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    .card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .value {
+        margin-top: 5px;
+    }
+}
+.home-button {
+    width: 40px;
+    height: 40px;
+    background: #fff url('../static/home-icon.svg') no-repeat center;
+    background-size: cover;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.home-button:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.home-button {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 50px;
+    background: #fff;
+    color: #007bff;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.home-button:hover {
+    background: #007bff;
+    color: white;
+    transform: scale(1.1);
+}
