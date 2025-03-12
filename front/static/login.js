@@ -25,7 +25,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         sessionStorage.setItem('sessionId', userID);
         sessionStorage.setItem('userName', username);
         sessionStorage.setItem('email', result.message[1]);
-        document.getElementById('loginMessage').innerText = result.message[2];
+        sessionStorage.setItem('currency', result.message[2]);
+        document.getElementById('loginMessage').innerText = result.message[3];
         await new Promise(resolve => setTimeout(resolve, 1000));
         window.location.href = 'home.html';
     } else {

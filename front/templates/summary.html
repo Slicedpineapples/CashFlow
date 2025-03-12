@@ -3,15 +3,26 @@
     <form id="summaryForm">
         <div class="form-group">
             <label for="Currency">Report Currency</label>
-            <input type="text" id="Currency" value="HUF">
+            <input type="text" id="Currency">
         </div>
         <div class="form-group">
             <label for="month">Month:</label>
-            <input type="month" id="Month" >
+            <input type="month" id="Month">
         </div>
         <button type="submit">Summary</button>
         <p id="summaryMessage"></p>
     </form>   
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let currencyInput = document.getElementById("Currency");
+        let storedCurrency = sessionStorage.getItem("currency"); // Get from sessionStorage
+        
+        if (storedCurrency) {
+            currencyInput.value = storedCurrency;
+        }
+    });
+</script>
 
 <script src="../static/summary.js"></script>
