@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <div class="profile">
+        <div class="header">
+            <div class="title">Hello, <span id="userName"></span></div>
+            <div id="fullDate"></div>
+            <button class="home-button" id="home-button" onclick="location.href='home.html'"></button>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>Manage your Profile</h2>
+                <div class="card profile-card">
+                    <div class="label">Username</div>
+                    <div class="value" id="profileUsername"></div>
+                </div>
+                <div class="card profile-card">
+                    <div class="label">Email</div>
+                    <div class="value" id="profileEmail"></div>
+                </div>
+                <div class="card profile-card">
+                    <div class="label">Phone</div>
+                    <div class="value" id="profilePhone"></div>
+                </div>
+                <div class="card profile-card">
+                    <div class="label">Password</div>
+                    <div class="value" id="profilePassword"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/profile.js"></script>
+</html>

@@ -7,7 +7,7 @@ global message
 message = ""
 
 def signUp(username, email, password, phone):
-    userName = username
+    userame = username
     email = email
     password = hashlib.sha256(password.encode()).hexdigest()
     phone = phone
@@ -17,8 +17,8 @@ def signUp(username, email, password, phone):
         cursor = connection.cursor()
 
         # Check if user already exists
-        sql_check = "SELECT id FROM user WHERE email = %s OR phone = %s"
-        values_check = (email, phone)
+        sql_check = "SELECT id FROM user WHERE username = %s OR email = %s OR phone = %s"
+        values_check = (username, email, phone)
         cursor.execute(sql_check, values_check)
         result_check = cursor.fetchone()
         
@@ -26,7 +26,7 @@ def signUp(username, email, password, phone):
         cursor.fetchall()
 
         if result_check:
-            message = "The email or phone has already been used. \nTry using different credentials."
+            message = "The username, email or phone has already been used. \nTry using different credentials."
             return None, message
 
         # Get User IP and Region
@@ -74,17 +74,20 @@ def login(username, password):
         connection = connect()
         cursor = connection.cursor()
         
-        sql = "SELECT id, userName, email, currency FROM user WHERE userName = %s AND password = %s"
+        sql = "SELECT * FROM user WHERE userName = %s AND password = %s"
         values = (username, password)
         cursor.execute(sql, values)
         result = cursor.fetchone()
 
         if result:
-            currency = result[3]
             userid = result[0]
-            email = result[2]
+            email = result[1]
+            counrty = result[3]
+            currency = result[4]
+            # email = result[2]
             message = "Login successful!"
-            return userid, email, currency, message
+            # return f'userid{userid}, email{email}, country{counrty}, currency{currency}, message{message}'#debugging only
+            return userid, email, counrty, currency, message
 
         else:
             message = "Invalid username or password"
