@@ -27,4 +27,9 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         window.location.href = 'login.html';
     }
+    else {
+        document.getElementById('signupMessage').innerText = result.message;
+        await new Promise(resolve => setTimeout(resolve, 2500));
+        window.location.href = 'signup.html';
+    }
 });

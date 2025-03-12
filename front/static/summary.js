@@ -84,29 +84,3 @@ function summary() {
 
     summaryExtension.style.display = summaryExtension.style.display === "none" ? "block" : "none";
 }
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     const currencySelect = document.getElementById('Currency');
-
-//     // Fetch the list of currencies from the API
-//     fetch('https://api.exchangerate-api.com/v4/latest/USD')
-//         .then(response => response.json())
-//         .then(data => {
-//             const currencies = data.rates;
-//             for (const currency in currencies) {
-//                 const option = document.createElement('option');
-//                 option.value = currency;
-//                 option.textContent = currency;
-//                 currencySelect.appendChild(option);
-//             }
-//             // console.log('Currencies loaded:', currencies);
-//         })
-//         .catch(error => {
-//             console.error('Error fetching the currency data:', error);
-//             const option = document.createElement('option');
-//             option.value = 'error';
-//             option.textContent = 'Error loading currencies';
-//             currencySelect.appendChild(option);
-//         });
-// });
-

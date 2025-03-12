@@ -7,46 +7,60 @@ global message
 message = ""
 
 def signUp(username, email, password, phone):
-    # print("Sign up for a new account")
-    # userName = input("Enter a username: ")
-    # email = input("Enter your email: ")
-    # password = input("Enter a password: ")
-    # phone = input("Enter your phone number: ")
     userName = username
     email = email
     password = hashlib.sha256(password.encode()).hexdigest()
     phone = phone
 
     try:
+        connection = connect()
+        cursor = connection.cursor()
+
+        # Check if user already exists
+        sql_check = "SELECT id FROM user WHERE email = %s OR phone = %s"
+        values_check = (email, phone)
+        cursor.execute(sql_check, values_check)
+        result_check = cursor.fetchone()
+        
+        # Fetch all remaining results to avoid "Unread result found" error
+        cursor.fetchall()
+
+        if result_check:
+            message = "The email or phone has already been used. \nTry using different credentials."
+            return None, message
+
+        # Get User IP and Region
         ip_response = requests.get('https://api.ipify.org?format=json')
         ip_data = ip_response.json()
         user_ip = ip_data['ip']
         geolocation_response = requests.get(f'https://ipapi.co/{user_ip}/country_name')
         region = geolocation_response.text
+        currency = get_currency(region)
 
-        signup = connect()  # Assuming connect returns a database connection
-        cursor = signup.cursor()
-
-        sql = "INSERT INTO user (email, phone, region, userName, password) VALUES (%s, %s, %s, %s, %s)"
-        values = (email, phone, region, userName, password)
-        cursor.execute(sql, values)
-        signup.commit()
-        message = "User created successfully!"
+        # Insert new user (using a new cursor)
+        sql = "INSERT INTO user (email, phone, region, currency, userName, password) VALUES (%s, %s, %s, %s, %s, %s)"
+        values = (email, phone, region, currency, userName, password)
         
+        cursor2 = connection.cursor()
+        cursor2.execute(sql, values)
+        connection.commit()
+        message = "User created successfully!"
+        userId = cursor2.lastrowid
+        cursor2.close()
 
     except Exception as e:
-        message = "Something went wrong:", e
+        message = f"Something went wrong: {e}"
         print("Error:", e)
+        userId = None
 
     finally:
         if cursor:
             cursor.close()
-        if signup:
-            signup.close()
-    userId = cursor.lastrowid
-    # print("Your user ID is:", userId) #Debugging only
+        if connection:
+            connection.close()
+
     return userId, message
-    
+
 def login(username, password):
     # print("Login to your account")
     # if username == None and password == None:
@@ -60,14 +74,13 @@ def login(username, password):
         connection = connect()
         cursor = connection.cursor()
         
-        sql = "SELECT id, userName, email, region FROM user WHERE userName = %s AND password = %s"
+        sql = "SELECT id, userName, email, currency FROM user WHERE userName = %s AND password = %s"
         values = (username, password)
         cursor.execute(sql, values)
         result = cursor.fetchone()
 
         if result:
-            region = result[3]
-            currency = get_currency(region)
+            currency = result[3]
             userid = result[0]
             email = result[2]
             message = "Login successful!"
