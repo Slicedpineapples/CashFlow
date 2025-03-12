@@ -1,6 +1,7 @@
 import requests
 from server import connect
 import hashlib
+from curr import get_currency
 
 global message
 message = ""
@@ -65,11 +66,12 @@ def login(username, password):
         result = cursor.fetchone()
 
         if result:
+            region = result[3]
+            currency = get_currency(region)
             userid = result[0]
             email = result[2]
-            region = result[3]
             message = "Login successful!"
-            return userid, email, region, message
+            return userid, email, currency, message
 
         else:
             message = "Invalid username or password"
