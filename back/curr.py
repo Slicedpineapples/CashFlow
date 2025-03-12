@@ -23,3 +23,5 @@ def get_currency(country_name: str):
 # Debuggig only
 # print(get_currency("keNYA"))
 # print(get_currency("hungary"))
+
+#To update the base currency when the user changes their account

@@ -11,6 +11,7 @@ from reports import incomeReport, expensesReport, assetsReport, liabilitiesRepor
 from pdfGen import apiGenReport
 from mess import send_email
 from utils import Convert, seed, makeDir
+from update import updateCountry
 
 makeDir() #creting the directories
 
@@ -72,6 +73,10 @@ class SummarySchema(Schema):
     start = fields.Str(required=True)
     end = fields.Str(required=True)
     currency = fields.Str(required=True)
+
+class UpdateCountrySchema(Schema):
+    userId = fields.Int(required=True)
+    newCountry = fields.Str(required=True)
 
 # class EmailSchema(Schema):
 #     email = fields.Email(required=True)
@@ -219,6 +224,14 @@ def getSummary():
     return jsonify({'message': 'Something went wrong'}), 500
 
 
+@app.route('/apiUpdateCountry', methods=['POST'])
+def updateCountryAPI():
+    data, errors = validate_input(UpdateCountrySchema(), request.get_json())
+    if errors:
+        return jsonify({'errors': errors}), 400
+
+    response = updateCountry(data['userId'], data['newCountry'])
+    return jsonify({'message': response}), 200
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000) 
