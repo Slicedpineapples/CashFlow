@@ -10,8 +10,7 @@ const capitalizedUserName = userName.charAt(0).toUpperCase() + userName.slice(1)
 const date = new Date();
 const day = date.getDate();
 const month = date.toLocaleString('default', { month: 'long' });
-const year = date.getFullYear();
-const fullDate = `${day} ${month} ${year}`;
+const fullDate = `${day} ${month}`;
 document.getElementById('userName').innerText = capitalizedUserName;
 document.getElementById('fullDate').innerText = fullDate;
 

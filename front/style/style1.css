@@ -415,7 +415,7 @@ body {
     align-items: center;
     padding: 20px;
     max-width: 800px;
-    margin: 20px auto;
+    /* margin: 20px auto; */
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
     transition: var(--transition);
@@ -428,13 +428,11 @@ body {
     width: 100%;
     padding-bottom: 20px;
     border-bottom: 1px solid #444; /* Darker border */
-    margin-bottom: 30px;
     transition: var(--transition);
 }
 
 .profile .header .title {
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 24px;
     color: #e0e0e0; /* Light text color */
     transition: var(--transition);
 }
@@ -516,7 +514,6 @@ body {
 .profile h4 {
     font-size: 18px;
     color: #ff6347; /* Tomato color */
-    margin-top: 30px;
     font-weight: bold;
 }
 
@@ -561,7 +558,7 @@ body {
     }
 
     #profileMessage {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 
