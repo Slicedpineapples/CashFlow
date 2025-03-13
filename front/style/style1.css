@@ -383,6 +383,16 @@ body {
     border: none;
     cursor: pointer;
 }
+.profile-button {
+    background-color: #1e1e1e;
+    width: 30px;
+    height: 30px;
+    background-image: url(../assets/user.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+}
 
 /* Profile Css */
 /* Profile Page Styles - Dark Mode (profile-dark.css) */
@@ -445,15 +455,18 @@ body {
 .profile .home-button {
     width: 30px;
     height: 30px;
-    background-image: url('../assets/home-icon-dark.svg'); /* Dark mode home icon */
+    background-color: grey;
+    background-image: url('../assets/home.png'); /* Dark mode home icon */
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .profile .toggle-button {
+    background-color: grey;
     width: 30px;
     height: 30px;
-    background-image: url('../assets/toggle-icon-dark.svg'); /* Dark mode toggle icon */
+    background-image: url(../assets/dark.svg);
+    animation: fadeIn 1s;
     background-size: cover;
     background-repeat: no-repeat;
 }

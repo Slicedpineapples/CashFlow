@@ -383,7 +383,16 @@ body {
     cursor: pointer;
     background-color: whitesmoke;
 }
-
+.profile-button {
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    background-image: url(../assets/user.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+}
 
 /* Profile */
 /* Profile Page Styles (profile.css) */
@@ -446,7 +455,7 @@ body {
 .profile .home-button {
     width: 30px;
     height: 30px;
-    background-image: url('../assets/home-icon.svg');
+    background-image: url('../assets/home.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -454,7 +463,8 @@ body {
 .profile .toggle-button {
     width: 30px;
     height: 30px;
-    background-image: url('../assets/toggle-icon.svg');
+    background-image: url(../assets/light.svg);
+    animation: fadeIn 1s;
     background-size: cover;
     background-repeat: no-repeat;
 }

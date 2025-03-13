@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         saveButton.onclick = () => saveChanges(fieldId, input.value);
         input.insertAdjacentElement("afterend", saveButton);
     }
+    
 
     async function saveChanges(fieldId, newValue) {
         if (!newValue.trim()) {
@@ -73,13 +74,23 @@ document.addEventListener("DOMContentLoaded", () => {
         if (fieldId !== "profileCountry") {
             displayMessage("Only the country field can be updated.", false);
             return;
+            
+        }
+        // Sorting hostname for API URL
+        const hostname = window.location.hostname;
+        let apiUrl;
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            apiUrl = 'http://127.0.0.1:5000/';
+        } else {
+            apiUrl = `http://${hostname}:5000/`;
         }
 
-        const apiUrl = "http://127.0.0.1:5000/apiUpdateCountry";
+
+        const profileapiUrl = `${apiUrl}apiUpdateCountry`;
         const userId = sessionStorage.getItem("sessionId");
 
         try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch(profileapiUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId, newCountry: newValue })
