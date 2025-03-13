@@ -23,8 +23,9 @@ def updateCountry(userid, newCountry):
         values = (region, newcurr, userid)
         cursor.execute(sql, values)
         updateconn.commit()
+        message = "Country updated successfully!"
 
-        return "Country updated successfully!"
+        return newcurr, newCountry, message
 
     except Exception as e:
         print(f"Database error: {e}")
@@ -36,3 +37,6 @@ def updateCountry(userid, newCountry):
             cursor.close()
         if updateconn:
             updateconn.close()
+
+# Debugging only
+# print(updateCountry(1, "kenya"))  # Expected output: "KES, Kenya, Country updated successfully!"
