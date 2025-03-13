@@ -1,4 +1,4 @@
-# moneymaster
+# CashFlow
 
 A simple application for financial tracking, inspired by Robert Kiyosaki's publication, the Cashflow Quadrant. For more information, visit [this link](https://shorturl.at/ZDDqI).
 
