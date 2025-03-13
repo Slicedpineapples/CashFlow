@@ -1,7 +1,7 @@
 function toggleButton() {
     var stylesheet = document.getElementById('theme-stylesheet');
     const currentTheme = stylesheet.getAttribute('href');
-    const newTheme = currentTheme === '../style/profile1.css' ? 'profile.css' : 'profile1.css';
+    const newTheme = currentTheme === '../style/style1.css' ? 'style.css' : 'style1.css';
 
     // Update the theme
     stylesheet.setAttribute('href', `../style/${newTheme}`);
@@ -9,14 +9,14 @@ function toggleButton() {
     // Set expiration date for 365 days from today
     var expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + 365);
-    localStorage.setItem('profilethemeChoice', newTheme);
-    localStorage.setItem('profilethemeExpiration', expirationDate.toISOString());
+    localStorage.setItem('themeChoice', newTheme);
+    localStorage.setItem('themeExpiration', expirationDate.toISOString());
 }
 
 // Load stored theme choice if available and not expired
 document.addEventListener("DOMContentLoaded", () => {
-    const storedThemeChoice = localStorage.getItem('profilethemeChoice');
-    const storedThemeExpiration = localStorage.getItem('profilethemeExpiration');
+    const storedThemeChoice = localStorage.getItem('themeChoice');
+    const storedThemeExpiration = localStorage.getItem('themeExpiration');
 
     if (storedThemeChoice && storedThemeExpiration) {
         const expirationDate = new Date(storedThemeExpiration);
@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('theme-stylesheet').setAttribute('href', `../style/${storedThemeChoice}`);
         } else {
             // Remove expired theme choice
-            localStorage.removeItem('profilethemeChoice');
-            localStorage.removeItem('profilethemeExpiration');
+            localStorage.removeItem('themeChoice');
+            localStorage.removeItem('themeExpiration');
         }
     }
 });

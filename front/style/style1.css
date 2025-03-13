@@ -383,3 +383,203 @@ body {
     border: none;
     cursor: pointer;
 }
+
+/* Profile Css */
+/* Profile Page Styles - Dark Mode (profile-dark.css) */
+
+/* Global Transitions for smoother changes */
+.profile {
+    --transition-duration: 0.7s;
+    --transition-property: all;
+    --transition-timing-function: ease;
+    --transition: var(--transition-property) var(--transition-duration) var(--transition-timing-function);
+}
+
+/* Profile Container */
+.profile {
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    transition: var(--transition);
+}
+
+/* Header */
+.profile .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #444; /* Darker border */
+    margin-bottom: 30px;
+    transition: var(--transition);
+}
+
+.profile .header .title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #e0e0e0; /* Light text color */
+    transition: var(--transition);
+}
+
+.profile #fullDate {
+    font-size: 16px;
+    color: #bbb; /* Lighter text */
+    transition: var(--transition);
+}
+
+.profile .toggle-button, .profile .home-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.profile .home-button {
+    width: 30px;
+    height: 30px;
+    background-image: url('../assets/home-icon-dark.svg'); /* Dark mode home icon */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.profile .toggle-button {
+    width: 30px;
+    height: 30px;
+    background-image: url('../assets/toggle-icon-dark.svg'); /* Dark mode toggle icon */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Content Section */
+.profile .content {
+    width: 100%;
+}
+
+.profile .section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profile .section h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ccc; /* Light text color */
+    transition: var(--transition);
+}
+
+.profile .card {
+    background-color: #1e1e1e; /* Darker card background */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    transition: var(--transition);
+}
+
+.profile .card .label {
+    font-size: 16px;
+    color: #e0e0e0; /* Light text color */
+    font-weight: bold;
+    margin-bottom: 10px;
+    transition: var(--transition);
+}
+
+.profile .card .value {
+    font-size: 16px;
+    color: #bbb; /* Lighter text for values */
+    transition: var(--transition);
+}
+
+.profile h4 {
+    font-size: 18px;
+    color: #ff6347; /* Tomato color */
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.profile p {
+    font-size: 14px;
+    color: #e0e0e0; /* Light text color */
+}
+
+.profile li {
+    margin-bottom: 10px;
+}
+
+/* Profile Message */
+#profileMessage {
+    margin-top: 20px;
+    font-size: 16px;
+    color: green;
+    font-weight: bold;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .profile .header .title {
+        font-size: 22px;
+    }
+
+    .profile #fullDate {
+        font-size: 14px;
+    }
+
+    .profile .card .label, .profile .card .value {
+        font-size: 14px;
+    }
+
+    .profile .content {
+        margin: 0;
+        padding: 10px;
+    }
+
+    .profile h2 {
+        font-size: 22px;
+    }
+
+    #profileMessage {
+        font-size: 14px;
+    }
+}
+
+/* Additional Media Query to detect user's preferred color scheme (optional) */
+@media (prefers-color-scheme: dark) {
+    .profile {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+    
+    .profile .header .title {
+        color: #e0e0e0;
+    }
+    
+    .profile .card {
+        background-color: #1e1e1e;
+    }
+    
+    .profile .card .label {
+        color: #e0e0e0;
+    }
+    
+    .profile .card .value {
+        color: #bbb;
+    }
+
+    .profile h4 {
+        color: #ff6347;
+    }
+
+    .profile p {
+        color: #e0e0e0;
+    }
+}
