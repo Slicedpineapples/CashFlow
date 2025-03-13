@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="../style/profile.css">
+    <link id="theme-stylesheet" rel="stylesheet" href="../style/profile1.css">
+
 </head>
 <body>
     <div class="profile">
         <div class="header">
             <div class="title">Hello, <span id="userName"></span></div>
             <div id="fullDate"></div>
+            <button class="toggle-button" id="toggle-button" onclick="toggleButton()"></button>
             <button class="home-button" id="home-button" onclick="location.href='home.html'"></button>
         </div>
         
@@ -41,8 +43,12 @@
                     <div class="label">Password</div>
                     <div class="value" id="profilePassword"></div>
                 </div>
+                <h4>Important notice</h4>
+                <p><li>Only the Country may be edited at this time.</li>
+                <li>After changing the country, re-login for changes to take effect.</li></p>
             </div>
         </div>
+        <p id="profileMessage"></p>
     </div>
     <script src="../static/profile.js"></script>
 </html>
