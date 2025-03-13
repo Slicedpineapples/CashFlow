@@ -481,7 +481,7 @@ body {
 }
 
 .profile .section h2 {
-    font-size: 24px;
+    font-size: 18px;
     text-align: center;
     margin-bottom: 30px;
     color: #ccc; /* Light text color */
@@ -554,7 +554,7 @@ body {
     }
 
     .profile h2 {
-        font-size: 22px;
+        font-size: 18px;
     }
 
     #profileMessage {
