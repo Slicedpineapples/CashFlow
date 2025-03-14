@@ -394,8 +394,7 @@ body {
     cursor: pointer;
 }
 
-/* Profile */
-/* Profile Page Styles (profile.css) */
+/* Profile Css*/
 
 /* Global Transitions for smoother changes */
 .profile {
@@ -437,12 +436,6 @@ body {
     transition: var(--transition);
 }
 
-.profile #fullDate {
-    font-size: 16px;
-    color: #555;
-    transition: var(--transition);
-}
-
 .profile .toggle-button, .profile .home-button {
     background-color: transparent;
     border: none;
@@ -453,12 +446,14 @@ body {
 .profile .home-button {
     width: 30px;
     height: 30px;
+    background-color: transparent;
     background-image: url('../assets/home.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .profile .toggle-button {
+    background-color: transparent;
     width: 30px;
     height: 30px;
     background-image: url(../assets/light.svg);
@@ -481,7 +476,7 @@ body {
 .profile .section h2 {
     font-size: 18px;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #444;
     transition: var(--transition);
 }
@@ -512,7 +507,7 @@ body {
 .profile h4 {
     font-size: 18px;
     color: #d9534f;
-    margin-top: 30px;
+    margin-top: 5px;
     font-weight: bold;
 }
 
@@ -521,9 +516,6 @@ body {
     color: #333;
 }
 
-.profile li {
-    margin-bottom: 10px;
-}
 
 /* Important notice styling */
 .profile h4 {
@@ -532,7 +524,7 @@ body {
 
 /* Profile Message */
 #profileMessage {
-    margin-top: 20px;
+    margin-top: -30px;
     font-size: 16px;
     color: green;
     font-weight: bold;
@@ -544,9 +536,6 @@ body {
         font-size: 22px;
     }
 
-    .profile #fullDate {
-        font-size: 14px;
-    }
 
     .profile .card .label, .profile .card .value {
         font-size: 14px;

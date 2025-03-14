@@ -395,7 +395,6 @@ body {
 }
 
 /* Profile Css */
-/* Profile Page Styles - Dark Mode (profile-dark.css) */
 
 /* Global Transitions for smoother changes */
 .profile {
@@ -417,7 +416,7 @@ body {
     max-width: 800px;
     /* margin: 20px auto; */
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
 }
 
@@ -434,12 +433,6 @@ body {
 .profile .header .title {
     font-size: 24px;
     color: #e0e0e0; /* Light text color */
-    transition: var(--transition);
-}
-
-.profile #fullDate {
-    font-size: 16px;
-    color: #bbb; /* Lighter text */
     transition: var(--transition);
 }
 
@@ -483,7 +476,7 @@ body {
 .profile .section h2 {
     font-size: 18px;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #ccc; /* Light text color */
     transition: var(--transition);
 }
@@ -493,7 +486,7 @@ body {
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
 }
 
@@ -514,6 +507,7 @@ body {
 .profile h4 {
     font-size: 18px;
     color: #ff6347; /* Tomato color */
+    margin-top: 5px;
     font-weight: bold;
 }
 
@@ -522,13 +516,10 @@ body {
     color: #e0e0e0; /* Light text color */
 }
 
-.profile li {
-    margin-bottom: 10px;
-}
 
 /* Profile Message */
 #profileMessage {
-    margin-top: 20px;
+    margin-top: -30px;
     font-size: 16px;
     color: green;
     font-weight: bold;
@@ -538,10 +529,6 @@ body {
 @media (max-width: 480px) {
     .profile .header .title {
         font-size: 22px;
-    }
-
-    .profile #fullDate {
-        font-size: 14px;
     }
 
     .profile .card .label, .profile .card .value {
@@ -562,34 +549,3 @@ body {
     }
 }
 
-/* Additional Media Query to detect user's preferred color scheme (optional) */
-@media (prefers-color-scheme: dark) {
-    .profile {
-        background-color: #121212;
-        color: #e0e0e0;
-    }
-    
-    .profile .header .title {
-        color: #e0e0e0;
-    }
-    
-    .profile .card {
-        background-color: #1e1e1e;
-    }
-    
-    .profile .card .label {
-        color: #e0e0e0;
-    }
-    
-    .profile .card .value {
-        color: #bbb;
-    }
-
-    .profile h4 {
-        color: #ff6347;
-    }
-
-    .profile p {
-        color: #e0e0e0;
-    }
-}
