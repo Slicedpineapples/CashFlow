@@ -15,7 +15,7 @@ def signUp(username, email, password, phone):
     email = email
     password = password # password hashed at the front end
     phone = phone
-    ustoken = userSecurityToken()
+    ustoken = 0
     sessionstatus = 0
 
     try:
@@ -42,6 +42,7 @@ def signUp(username, email, password, phone):
         geolocation_response = requests.get(f'https://ipapi.co/{user_ip}/country_name')
         region = geolocation_response.text
         currency = get_currency(region)
+        ustoken = userSecurityToken()
 
         # Insert new user (using a new cursor)
         sql = "INSERT INTO user (email, phone, region, currency, userName, password, ustoken, session) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
@@ -76,6 +77,8 @@ def login(username, password):
     # password = hashlib.sha256(password.encode()).hexdigest()
     username = username
     password = password # password hashed at the front end
+    ust = 0 # default ustoken
+    sessionstatus = 0 # Default session status
 
     try:
         connection = connect()
@@ -87,19 +90,27 @@ def login(username, password):
         result = cursor.fetchone()
 
         if result:
-            ust = result[6]
-            userid = result[0]
-            email = result[1]
-            counrty = result[3]
-            currency = result[4]
-            phone = result[2]
+            ust = userSecurityToken() # Generate a new ustoken for the current login session
+            print(ust)
+            # Update session status to 1
+            update_sql = "UPDATE user SET ustoken = %s, session = TRUE WHERE userName = %s"
+            update_values = (ust, username)
+            cursor.execute(update_sql, update_values)
+            connection.commit()
+            print(f"Rows affected: {cursor.rowcount}")  # Debugging: Check if update actually happens
+
             message = "Login successful!"
             # return userid, email, counrty, currency, phone, message
             return ust, message
 
         else:
             message = "Invalid username or password"
-            return None, message
+            ust = None
+            update_sql = "UPDATE user SET session = FALSE WHERE userName = %s"
+            update_values = (username,)
+            cursor.execute(update_sql, update_values)
+            connection.commit()
+            return ust, message
 
     except Exception as e:
         print("Error:", e)

@@ -39,11 +39,6 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         // Handle login success
         if (result.message[0] !== null) {
             sessionStorage.setItem('sessionId', result.message[0]);
-            sessionStorage.setItem('userName', username);
-            sessionStorage.setItem('email', result.message[1]);
-            sessionStorage.setItem('country', result.message[2]);
-            sessionStorage.setItem('currency', result.message[3]);
-            sessionStorage.setItem('phone', result.message[4]);
 
             document.getElementById('loginMessage').innerText = result.message[1];
             await new Promise(resolve => setTimeout(resolve, 1000));
