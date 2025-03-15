@@ -1,3 +1,6 @@
+if (!sessionStorage.getItem('sessionId')) {
+    window.location.href = '/';
+}
 function toggleButton() {
     var stylesheet = document.getElementById('theme-stylesheet');
     const currentTheme = stylesheet.getAttribute('href');

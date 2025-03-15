@@ -75,9 +75,9 @@ function summary() {
                     setTimeout(() => {
                         document.getElementById('summaryMessage').innerText = '';
                     }, 2000);
-                    setTimeout(() => {
-                        document.getElementById('summaryForm').reset();
-                    }, 1000);
+                    // setTimeout(() => {
+                    //     document.getElementById('summaryForm').reset();
+                    // }, 1000);
                 });
             });
     }
