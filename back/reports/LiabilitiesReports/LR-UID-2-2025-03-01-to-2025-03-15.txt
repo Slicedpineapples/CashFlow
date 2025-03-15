@@ -1,0 +1,7 @@
+Liabilities report starting 2025-03-01 to 2025-03-15
+Liability	Gross Amount	Remaining Amount	Date Due
+house rent	1000000	600000	2025-03-15
+fake bill	1200000	7888888	2025-03-15
+
+Total Liabilities: {'Total': -6288888}
+Report generated for user 2 on 2025-03-15 17:21:14

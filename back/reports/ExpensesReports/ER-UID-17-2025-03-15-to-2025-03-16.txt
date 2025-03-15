@@ -1,0 +1,7 @@
+Expenses report starting 2025-03-15 to 2025-03-16
+Category	Item name	Price	Date
+Anasa	Shawries	2500	2025-03-15
+Anasa	Shawries	2500	2025-03-15
+
+Total Expenses: {'Total': 5000}
+Report generated for user 17 on 2025-03-15 16:36:09

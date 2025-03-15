@@ -1,0 +1,5 @@
+Assets report starting 2025-03-12 to 2025-03-20
+Location	Asset Name	Value	Number of Items	Date
+
+Total Assets: {'Total': 0}
+Report generated for user 17 on 2025-03-15 16:36:54

@@ -4,6 +4,7 @@ import hashlib
 from curr import get_currency
 from flask import request, jsonify
 from server import connect
+from utils import userSecurityToken
 
 
 global message
@@ -12,8 +13,10 @@ message = ""
 def signUp(username, email, password, phone):
     username = username
     email = email
-    password = hashlib.sha256(password.encode()).hexdigest()
+    password = password # password hashed at the front end
     phone = phone
+    ustoken = userSecurityToken()
+    sessionstatus = 0
 
     try:
         connection = connect()
@@ -41,8 +44,8 @@ def signUp(username, email, password, phone):
         currency = get_currency(region)
 
         # Insert new user (using a new cursor)
-        sql = "INSERT INTO user (email, phone, region, currency, userName, password) VALUES (%s, %s, %s, %s, %s, %s)"
-        values = (email, phone, region, currency, username, password)
+        sql = "INSERT INTO user (email, phone, region, currency, userName, password, ustoken, session) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (email, phone, region, currency, username, password, ustoken, sessionstatus)
         
         cursor2 = connection.cursor()
         cursor2.execute(sql, values)
@@ -70,8 +73,9 @@ def login(username, password):
     #     username = input("Enter your username: ")
     #     password = input("Enter your password: ")
     # else:
+    # password = hashlib.sha256(password.encode()).hexdigest()
     username = username
-    password = hashlib.sha256(password.encode()).hexdigest()
+    password = password # password hashed at the front end
 
     try:
         connection = connect()
@@ -83,6 +87,7 @@ def login(username, password):
         result = cursor.fetchone()
 
         if result:
+            ust = result[6]
             userid = result[0]
             email = result[1]
             counrty = result[3]
@@ -90,7 +95,8 @@ def login(username, password):
             phone = result[2]
             message = "Login successful!"
             # return f'userid{userid}, email{email}, country{counrty}, currency{currency}, message{message}'#debugging only
-            return userid, email, counrty, currency, phone, message
+            # return userid, email, counrty, currency, phone, message
+            return ust
 
         else:
             message = "Invalid username or password"
@@ -104,63 +110,6 @@ def login(username, password):
             cursor.close()
         if connection:
             connection.close()
-
-import hashlib
-from server import connect
-from curr import get_currency  # Assuming this function exists to get currency based on country
-
-# def updateProfile(userId):
-#     try:
-#         connection = connect()
-#         cursor = connection.cursor()
-
-#         # User input for new values (can be adjusted for a form or API later)
-#         new_email = input("Enter new email: ")
-#         new_phone = input("Enter new phone number: ")
-#         new_country = input("Enter new country: ")
-#         new_currency = get_currency(new_country)
-
-#         # Get the old user values from the database
-#         cursor.execute("SELECT email, phone, region, currency FROM user WHERE id = %s", (userId,))
-#         old_values = cursor.fetchone()
-
-#         # If no user is found with this userId
-#         if not old_values:
-#             return "User not found."
-
-#         # Check if the new value is provided, else keep the old value
-#         if not new_email:
-#             new_email = old_values[0]  # Keep old email
-#         if not new_phone:
-#             new_phone = old_values[1]  # Keep old phone number
-#         if not new_country:
-#             new_country = old_values[2]  # Keep old country
-#         if not new_currency:
-#             new_currency = old_values[3]  # Keep old currency
-
-#         # Update the user profile with the new values
-#         sql = """
-#             UPDATE user
-#             SET email = %s, phone = %s, region = %s, currency = %s
-#             WHERE id = %s
-#         """
-#         values = (new_email, new_phone, new_country, new_currency, userId)
-#         cursor.execute(sql, values)
-#         connection.commit()
-
-#         message = "Profile updated successfully!"
-
-#     except Exception as e:
-#         message = f"Something went wrong: {e}"
-#         print("Error:", e)
-
-#     finally:
-#         if cursor:
-#             cursor.close()
-#         if connection:
-#             connection.close()
-
-#     return message
 
 
 

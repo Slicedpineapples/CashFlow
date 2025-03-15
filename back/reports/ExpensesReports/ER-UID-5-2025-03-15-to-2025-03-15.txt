@@ -1,0 +1,6 @@
+Expenses report starting 2025-03-15 to 2025-03-15
+Category	Item name	Price	Date
+luxury	watch	123	2025-03-15
+
+Total Expenses: {'Total': 123}
+Report generated for user 5 on 2025-03-15 17:18:22

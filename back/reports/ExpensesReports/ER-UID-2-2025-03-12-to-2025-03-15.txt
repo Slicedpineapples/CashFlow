@@ -1,0 +1,9 @@
+Expenses report starting 2025-03-12 to 2025-03-15
+Category	Item name	Price	Date
+food	food	1200	2025-03-15
+drinks	wine and glass	2000	2025-03-15
+work	benzene	5000	2025-03-15
+transport	train ticket	5000	2025-03-15
+
+Total Expenses: {'Total': 13200}
+Report generated for user 2 on 2025-03-15 16:37:06

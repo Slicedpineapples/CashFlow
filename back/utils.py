@@ -3,6 +3,9 @@ import os
 import requests
 from server import connect, connect4seed
 from mysql.connector import Error
+import string
+import random
+import hashlib
 
 def makeDir():
     folder = 'reports'
@@ -131,3 +134,10 @@ def seed():
 
 # seed() # Debugging only
 
+def userSecurityToken():
+    characters = string.ascii_letters + string.digits + string.punctuation
+    random_combination = ''.join(random.choices(characters, k=10))
+    hashUST = hashlib.sha256(random_combination.encode()).hexdigest()
+    return hashUST
+
+# print(userSecurityToken()) # Debugging only

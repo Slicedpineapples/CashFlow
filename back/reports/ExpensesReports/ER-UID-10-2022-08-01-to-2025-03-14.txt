@@ -1,0 +1,5 @@
+Expenses report starting 2022-08-01 to 2025-03-14
+Category	Item name	Price	Date
+
+Total Expenses: {'Total': 0}
+Report generated for user 10 on 2025-03-15 17:18:07
