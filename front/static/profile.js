@@ -60,14 +60,28 @@ document.addEventListener("DOMContentLoaded", () => {
         input.type = fieldType;
         input.value = oldValue;
         input.id = `${fieldId}-input`;
+        input.style.border = "1px solid #ccc";
+        input.style.padding = "5px";
+        input.style.marginRight = "5px";
+        input.style.borderRadius = "4px";
+        input.style.backgroundColor = "transparent";
+        input.style.color = "grey";
+        input.style.fontSize = "1.1rem";
+        input.style.width = `${valueElement.offsetWidth + 80}px`; // Maintain the same width
+
         valueElement.replaceWith(input);
 
         const saveButton = document.createElement("button");
         saveButton.innerText = "Save";
+        saveButton.style.padding = "5px 10px";
+        saveButton.style.border = "none";
+        saveButton.style.backgroundColor = "#4CAF50";
+        saveButton.style.color = "white";
+        saveButton.style.borderRadius = "4px";
+        saveButton.style.cursor = "pointer";
         saveButton.onclick = () => saveChanges(fieldId, input.value);
         input.insertAdjacentElement("afterend", saveButton);
     }
-    
 
     async function saveChanges(fieldId, newValue) {
         if (!newValue.trim()) {

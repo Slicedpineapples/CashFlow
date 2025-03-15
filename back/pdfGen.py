@@ -96,7 +96,7 @@ def apiGenReport(userId, email, start, end, currency):
         "Total assets": rawAssets[1],
         "Total liabilities": rawLiabilities[1],
         "Net savings": round((rawIncome[1] - rawExpenses[1]), 2),
-        "Net investment": rawAssets[1] - rawLiabilities[1]
+        "Net investment": round(rawAssets[1] - rawLiabilities[1], 2)
     }
     month = datetime.strptime(end, '%Y-%m-%d').strftime('%B')
     year = datetime.strptime(end, '%Y-%m-%d').strftime('%Y')
