@@ -1,5 +1,6 @@
 from server import connect
 import datetime
+from utils import ustVerify
 
 def liabilitiescategory(name, grossAmount, remainingAmount):
     # print("Liabilities")
@@ -31,23 +32,26 @@ def liabilitiescategory(name, grossAmount, remainingAmount):
     liabilityCategoryId = cursor.fetchone()[0]
     return liabilityCategoryId
 
-def liabilities(liabilityCategoryId, userId):
-    
-    # liabilityCategoryId = liabilitiescategory()
-    liabilityCategoryId = liabilityCategoryId
-    userId = userId
-    date = datetime.datetime.now()
-    
-    liabilities = connect()
-    cursor = liabilities.cursor()
-    sql = "INSERT INTO liabilities (liabilityCategoryId, dateDue, userId) VALUES (%s, %s, %s)"
-    values = (liabilityCategoryId, date, userId)
-    cursor.execute(sql, values)
-    liabilities.commit()
-    print("Liability added successfully!")
-    cursor.close()
-    liabilities.close()
-    if liabilityCategoryId:
-        return "success"
+def liabilities(liabilityCategoryId, userId, ust):
+    if ustVerify(ust) == False:
+        return "Invalid session"
     else:
-        return "failed"
+        
+        # liabilityCategoryId = liabilitiescategory()
+        liabilityCategoryId = liabilityCategoryId
+        userId = userId
+        date = datetime.datetime.now()
+        
+        liabilities = connect()
+        cursor = liabilities.cursor()
+        sql = "INSERT INTO liabilities (liabilityCategoryId, dateDue, userId) VALUES (%s, %s, %s)"
+        values = (liabilityCategoryId, date, userId)
+        cursor.execute(sql, values)
+        liabilities.commit()
+        print("Liability added successfully!")
+        cursor.close()
+        liabilities.close()
+        if liabilityCategoryId:
+            return "success"
+        else:
+            return "failed"

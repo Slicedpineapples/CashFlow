@@ -1,0 +1,8 @@
+Income report starting 2025-03-01 to 2025-03-15
+Source	Amount	Category	Date
+foul	100	foul	2025-03-15
+testUST	100	testUST	2025-03-15
+test	100	test	2025-03-15
+
+Total Income: {'Total': 300}
+Report generated for user 20 on 2025-03-15 20:53:20

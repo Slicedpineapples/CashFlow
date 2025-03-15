@@ -3,6 +3,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from datetime import datetime
 from rawData import expensesRawData, incomeRawData, assetsRawData, liabilitiesRawData
+from utils import ustVerify
 
 global font, font_bold, font_italic
 font = "Helvetica"
@@ -80,27 +81,30 @@ def generateReport(file_name, income, expenses, assets, liabilities, totals, end
     footer(c, width, height, email)
     c.save()
 
-def apiGenReport(userId, email, start, end, currency):
-    success = 'Summary report generated successfully.\nWe have sent it to your email.'
-    rawIncome = incomeRawData(userId, start, end, currency)
-    rawExpenses = expensesRawData(userId, start, end, currency)
-    rawAssets = assetsRawData(userId, start, end, currency)
-    rawLiabilities = liabilitiesRawData(userId, start, end, currency)
-    income_data = [{'name': i['incomeName'], 'value': i['amount']} for i in rawIncome[0]]
-    expenses_data = [{'name': e['expenseName'], 'value': e['total_price']} for e in rawExpenses[0]]
-    assets_data = [{'name': f"{a['numberOfItems']} {a['assetName']} ({a['location']})", 'value': a['value']} for a in rawAssets[0]]
-    liabilities_data = [{'name': l['liabilityName'], 'value': f"{l['grossAmount']} (Due: {l['dateDue']})"} for l in rawLiabilities[0]]
-    totals = {
-        "Total income": rawIncome[1],
-        "Total expenses": rawExpenses[1],
-        "Total assets": rawAssets[1],
-        "Total liabilities": rawLiabilities[1],
-        "Net savings": round((rawIncome[1] - rawExpenses[1]), 2),
-        "Net investment": round(rawAssets[1] - rawLiabilities[1], 2)
-    }
-    month = datetime.strptime(end, '%Y-%m-%d').strftime('%B')
-    year = datetime.strptime(end, '%Y-%m-%d').strftime('%Y')
-    reportMonth = month + ' ' + year
-    file_name = f'SR-UID-{userId}-{month}{year}-{currency}.pdf'
-    generateReport(file_name, income_data, expenses_data, assets_data, liabilities_data, totals, reportMonth, currency, email)
-    return 'reports/monthlyReports/' + file_name, success
+def apiGenReport(userId, email, start, end, currency, ust):
+    if ustVerify(ust) == False:
+        return "Invalid session"
+    else:
+        success = 'Summary report generated successfully.\nWe have sent it to your email.'
+        rawIncome = incomeRawData(userId, start, end, currency)
+        rawExpenses = expensesRawData(userId, start, end, currency)
+        rawAssets = assetsRawData(userId, start, end, currency)
+        rawLiabilities = liabilitiesRawData(userId, start, end, currency)
+        income_data = [{'name': i['incomeName'], 'value': i['amount']} for i in rawIncome[0]]
+        expenses_data = [{'name': e['expenseName'], 'value': e['total_price']} for e in rawExpenses[0]]
+        assets_data = [{'name': f"{a['numberOfItems']} {a['assetName']} ({a['location']})", 'value': a['value']} for a in rawAssets[0]]
+        liabilities_data = [{'name': l['liabilityName'], 'value': f"{l['grossAmount']} (Due: {l['dateDue']})"} for l in rawLiabilities[0]]
+        totals = {
+            "Total income": rawIncome[1],
+            "Total expenses": rawExpenses[1],
+            "Total assets": rawAssets[1],
+            "Total liabilities": rawLiabilities[1],
+            "Net savings": round((rawIncome[1] - rawExpenses[1]), 2),
+            "Net investment": round(rawAssets[1] - rawLiabilities[1], 2)
+        }
+        month = datetime.strptime(end, '%Y-%m-%d').strftime('%B')
+        year = datetime.strptime(end, '%Y-%m-%d').strftime('%Y')
+        reportMonth = month + ' ' + year
+        file_name = f'SR-UID-{userId}-{month}{year}-{currency}.pdf'
+        generateReport(file_name, income_data, expenses_data, assets_data, liabilities_data, totals, reportMonth, currency, email)
+        return 'reports/monthlyReports/' + file_name, success

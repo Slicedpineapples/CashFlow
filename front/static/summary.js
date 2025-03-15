@@ -32,7 +32,8 @@ function summary() {
                     currencyInput.value = storedCurrency;
                 }
 
-                const userID = sessionStorage.getItem('sessionId');
+                const userID = sessionStorage.getItem('userId');
+                const ust = sessionStorage.getItem('sessionId');
                 const email = sessionStorage.getItem('email');
 
                 // Getting the form data for construction of dates

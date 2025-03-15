@@ -27,7 +27,8 @@ function attachFormSubmitHandler() {
         const reportType = document.getElementById('reportType').value;
         const start = document.getElementById('start').value;
         const end = document.getElementById('end').value;
-        const userID = sessionStorage.getItem('sessionId');
+        const userID = sessionStorage.getItem('userId');
+        const ust = sessionStorage.getItem('sessionId');
 
         const hostname = window.location.hostname;
         let apiUrl;
@@ -40,7 +41,7 @@ function attachFormSubmitHandler() {
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ start, end, userID })
+            body: JSON.stringify({ start, end, userID, ust })
         });
         const result = await response.json();
         displayReport(result, reportType);

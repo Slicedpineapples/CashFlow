@@ -118,7 +118,8 @@ function plusExpense() {
                         document.adoptNode(child);
                         expenseExtension.appendChild(child);
                     }
-                    const userID = sessionStorage.getItem('sessionId');
+                    const userID = sessionStorage.getItem('userId');
+                    const ust = sessionStorage.getItem('sessionId');
                     document.getElementById('expenseForm').addEventListener('submit', async (e) => {
                         e.preventDefault();
                         const itemName = document.getElementById('itemName').value.trim();
@@ -128,7 +129,7 @@ function plusExpense() {
                         const response = await fetch(`${apiUrl}apiAddExpense`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ itemName, price, expenseCategory, userID })
+                            body: JSON.stringify({ itemName, price, expenseCategory, userID, ust })
                         });
 
                         const result = await response.json();
@@ -213,7 +214,8 @@ function plusLiability() {
                         document.adoptNode(child);
                         liabilityExtension.appendChild(child);
                     }
-                    const userID = sessionStorage.getItem('sessionId');
+                    const userID = sessionStorage.getItem('userId');
+                    const ust = sessionStorage.getItem('sessionId');
                     // console.log(userID);
                     document.getElementById('liabilityForm').addEventListener('submit', async (e) => {
                         e.preventDefault();
@@ -223,7 +225,7 @@ function plusLiability() {
                         const response = await fetch(`${apiUrl}apiAddLiability`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ liabilityCategory, grossAmount, remainingAmount, userID})
+                            body: JSON.stringify({ liabilityCategory, grossAmount, remainingAmount, userID, ust })
                         });
                         const result = await response.json();
                         document.getElementById('liabilityMessage').innerText = result.message;

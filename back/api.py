@@ -148,7 +148,7 @@ def api_addExpense():
     if priceID:
         categoryID = expensesCategory(data['expenseCategory'])
         if categoryID:
-            response = expenses(priceID, categoryID, data['userID'])
+            response = expenses(priceID, categoryID, data['userID'], data['ust'])
             if response == "success":
                 return jsonify({'message': "Expense added!"}), 200
             return jsonify({'message': 'Something went wrong at expenses()'}), 500
@@ -177,7 +177,7 @@ def api_addLiability():
 
     liabilityCategoryID = liabilitiescategory(data['liabilityCategory'], data['grossAmount'], data['remainingAmount'])
     if liabilityCategoryID:
-        response = liabilities(liabilityCategoryID, data['userID'])
+        response = liabilities(liabilityCategoryID, data['userID'], data['ust'])
         if response == "success":
             return jsonify({'message': "Liability added!"}), 200
         return jsonify({'message': 'Something went wrong at liabilities()'}), 500
@@ -189,7 +189,7 @@ def api_getIncomeReport():
     if errors:
         return jsonify({'errors': errors}), 400
     
-    response = incomeReport(data['userID'], data['start'], data['end'])
+    response = incomeReport(data['userID'], data['start'], data['end'], data['ust'])
     # print(response) # Debugging only
     return jsonify({'message': response}), 200
 
@@ -199,7 +199,7 @@ def api_getExpensesReport():
     if errors:
         return jsonify({'errors': errors}), 400
     
-    response = expensesReport(data['userID'], data['start'], data['end'])
+    response = expensesReport(data['userID'], data['start'], data['end'], data['ust'])
     return jsonify({'message': response}), 200
 
 @app.route('/apiGetAssetsReport', methods=['POST'])
@@ -208,7 +208,7 @@ def api_getAssetsReport():
     if errors:
         return jsonify({'errors': errors}), 400
     
-    response = assetsReport(data['userID'], data['start'], data['end'])
+    response = assetsReport(data['userID'], data['start'], data['end'], data['ust'])
     return jsonify({'message': response}), 200
 
 @app.route('/apiGetLiabilitiesReport', methods=['POST'])
@@ -217,7 +217,7 @@ def getLiabilitiesReport():
     if errors:
         return jsonify({'errors': errors}), 400
     
-    response = liabilitiesReport(data['userID'], data['start'], data['end'])
+    response = liabilitiesReport(data['userID'], data['start'], data['end'], data['ust'])
     return jsonify({'message': response}), 200
 
 @app.route('/apiGetSummary', methods=['POST'])
@@ -226,7 +226,7 @@ def getSummary():
     if errors:
         return jsonify({'errors': errors}), 400
  
-    response = apiGenReport(data['userId'], data['email'], data['start'], data['end'], data['currency'])
+    response = apiGenReport(data['userId'], data['email'], data['start'], data['end'], data['currency'], data['ust'])
     if response:
         endMonth = data['end'].split('-')[1]
         end = Convert(endMonth)+' '+data['end'].split('-')[0]

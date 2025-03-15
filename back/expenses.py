@@ -1,5 +1,6 @@
 import datetime
 from server import connect
+from utils import ustVerify
 
 def expensesPrice(itemName, price):
     # print("This is the expense price function")
@@ -45,33 +46,36 @@ def expensesCategory(categoryName):
     else:
         return None
 
-def expenses(expensesPriceId, expenseCategoryId, userId):
+def expenses(expensesPriceId, expenseCategoryId, userId, ust):
     # expensesPriceId = expensesPrice()
     # expenseCategoryId = expensesCategory()
-    currId = 1 # for now
-    # userId = login()
-    date = datetime.datetime.now()
-    expensesPriceId = expensesPriceId
-    expenseCategoryId = expenseCategoryId
-    userId = userId
-    print("Enter the date of the transaction:")
-    # date = Date()
-    
-    expenses = connect()
-    cursor = expenses.cursor()
-
-    sql = "INSERT INTO expenses (expensesPriceId, currId, expenseCategoryId, userId, date) VALUES (%s, %s, %s, %s, %s)"
-    values = (expenseCategoryId, currId, expensesPriceId, userId, date)
-    cursor.execute(sql, values)
-    expenses.commit()
-
-    print("Expense added successfully!")
-    cursor.close()
-    expenses.close()
-    if cursor.lastrowid:
-        return "success"
+    if ustVerify(ust) == False:
+        return "Invalid session"
     else:
-        return "failure"
+        currId = 1 # for now
+        # userId = login()
+        date = datetime.datetime.now()
+        expensesPriceId = expensesPriceId
+        expenseCategoryId = expenseCategoryId
+        userId = userId
+        print("Enter the date of the transaction:")
+        # date = Date()
+        
+        expenses = connect()
+        cursor = expenses.cursor()
 
+        sql = "INSERT INTO expenses (expensesPriceId, currId, expenseCategoryId, userId, date) VALUES (%s, %s, %s, %s, %s)"
+        values = (expenseCategoryId, currId, expensesPriceId, userId, date)
+        cursor.execute(sql, values)
+        expenses.commit()
 
+        print("Expense added successfully!")
+        cursor.close()
+        expenses.close()
+        if cursor.lastrowid:
+            return "success"
+        else:
+            return "failure"
+
+# print(expenses(1, 1, 20, "2b3476371043332ed80999cfd79b47bfe9a4b137b17dc5e68b5c2bf4ca213da9")) # Debugging only
 
