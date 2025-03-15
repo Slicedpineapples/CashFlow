@@ -213,7 +213,7 @@ def getSummary():
     if errors:
         return jsonify({'errors': errors}), 400
  
-    response = apiGenReport(data['userId'], data['start'], data['end'], data['currency'])
+    response = apiGenReport(data['userId'], data['email'], data['start'], data['end'], data['currency'])
     if response:
         endMonth = data['end'].split('-')[1]
         end = Convert(endMonth)+' '+data['end'].split('-')[0]
