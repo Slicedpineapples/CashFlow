@@ -163,7 +163,7 @@ def api_addAsset():
 
     assetCategoryID = assetsCategory(data['name'], data['numberOfItems'], data['location'])
     if assetCategoryID:
-        response = assets(assetCategoryID, data['userID'], data['value'])
+        response = assets(assetCategoryID, data['userID'], data['value'], data['ust'])
         if response == "success":
             return jsonify({'message': "Asset added!"}), 200
         return jsonify({'message': 'Something went wrong at assets()'}), 500

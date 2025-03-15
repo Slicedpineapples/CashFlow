@@ -163,7 +163,8 @@ function plusAsset() {
                         document.adoptNode(child);
                         assetExtension.appendChild(child);
                     }
-                    const userID = sessionStorage.getItem('sessionId');
+                    const userID = sessionStorage.getItem('userId');
+                    const ust = sessionStorage.getItem('sessionId');
                     // console.log(userID);
                     document.getElementById('assetForm').addEventListener('submit', async (e) => {
                         e.preventDefault();
@@ -176,9 +177,9 @@ function plusAsset() {
                         const response = await fetch(`${apiUrl}apiAddAsset`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ name, value, assetCategory, userID, location, numberOfItems})
+                            body: JSON.stringify({ name, value, assetCategory, userID, location, numberOfItems, ust })
                         });
-
+                        
                         const result = await response.json();
                         document.getElementById('assetMessage').innerText = result.message;
                         setTimeout(() => {
