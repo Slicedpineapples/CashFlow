@@ -94,9 +94,8 @@ def login(username, password):
             currency = result[4]
             phone = result[2]
             message = "Login successful!"
-            # return f'userid{userid}, email{email}, country{counrty}, currency{currency}, message{message}'#debugging only
             # return userid, email, counrty, currency, phone, message
-            return ust
+            return ust, message
 
         else:
             message = "Invalid username or password"
@@ -111,7 +110,37 @@ def login(username, password):
         if connection:
             connection.close()
 
+def fetchuserdata(ustoken):
+    try:
+        connection = connect()
+        cursor = connection.cursor()
 
+        sql = "SELECT * FROM user WHERE ustoken = %s"
+        values = (ustoken,)
+        cursor.execute(sql, values)
+        result = cursor.fetchone()
 
+        if result:
+            userid = result[0]
+            email = result[1]
+            counrty = result[3]
+            currency = result[4]
+            phone = result[2]
+            message = "User data fetched successfully!"
+            return userid, email, counrty, currency, phone, message
+
+        else:
+            message = "Invalid user security token"
+            return None, message
+
+    except Exception as e:
+        print("Error:", e)
+
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
 
         
+# print(fetchuserdata("4c5e4d18bdc60e4450a82740376e961f853c58956f4ebe2114f0675b69372914"))

@@ -45,7 +45,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             sessionStorage.setItem('currency', result.message[3]);
             sessionStorage.setItem('phone', result.message[4]);
 
-            document.getElementById('loginMessage').innerText = result.message[5];
+            document.getElementById('loginMessage').innerText = result.message[1];
             await new Promise(resolve => setTimeout(resolve, 1000));
             window.location.href = 'home.html';
         } else {
