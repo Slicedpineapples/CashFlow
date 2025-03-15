@@ -18,7 +18,7 @@ def send_email(to_email, attachment_path, end):
     password = os.getenv('PASSWORD')
 
     subject = f'Summary Report for {end}'
-    body = """Greetings from CashFlow!\n\nPlease see your attached financial report.\n\nBest regards,\CashFlow Team"""
+    body = f"""Dear subscriber,\n\nGreetings from CashFlow!\n\nPlease find your attached financial report for {end}. \n\nImportant Notice:\n- Please consider the environment before printing.\n- This email and its contents are intended for {to_email}. \n- This address is unmonitored. Please do not reply.\n\nWith kind regards,\nCashFlow System."""
 
     display_name = "CashFlow"
     login = from_email
