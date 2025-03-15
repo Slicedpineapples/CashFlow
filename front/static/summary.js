@@ -50,6 +50,11 @@ function summary() {
                         return;
                     }
 
+                    // Disable the submit button and change its color to gray
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    submitButton.disabled = true;
+                    submitButton.style.backgroundColor = 'gray';
+
                     // Date construction
                     const start = new Date(month);
                     start.setDate(1);
@@ -74,7 +79,15 @@ function summary() {
                     document.getElementById('summaryMessage').innerText = result.message;
                     setTimeout(() => {
                         document.getElementById('summaryMessage').innerText = '';
-                    }, 2000);
+                    }, 3000);
+
+                    setTimeout(() => {
+                        submitButton.style.backgroundColor = '';
+                        submitButton.disabled = false;
+
+                    }, 3000);
+                    // Re-enable the submit button and reset its color
+
                     // setTimeout(() => {
                     //     document.getElementById('summaryForm').reset();
                     // }, 1000);

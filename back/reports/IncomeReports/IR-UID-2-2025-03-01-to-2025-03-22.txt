@@ -1,0 +1,8 @@
+Income report starting 2025-03-01 to 2025-03-22
+Source	Amount	Category	Date
+wolt	27000	work	2025-03-15
+stipend	40000	stipend	2025-03-15
+debt	12000	paid debt	2025-03-15
+
+Total Income: {'Total': 79000}
+Report generated for user 2 on 2025-03-15 15:28:57
