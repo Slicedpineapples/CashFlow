@@ -1,6 +1,7 @@
 from server import connect
 import datetime
 import requests
+from utils import ustVerify
 
 def incomeSource(sourceName, amount):
     # sourceName = conninput("Enter the name of the income source: ") 
@@ -74,7 +75,7 @@ def currency():#Not yet complete
 
     cursor.close()
 
-def income(userId, sourceAmountId, IncomeCategoryId):
+def income(userId, sourceAmountId, IncomeCategoryId, ust):
     # userId = login()
     # sourceAmountId = incomeSource()
     # IncomeCategoryId = incomeCategory()
@@ -83,17 +84,20 @@ def income(userId, sourceAmountId, IncomeCategoryId):
     IncomeCategoryId = IncomeCategoryId
     currencyId = 1 # for now
     date= datetime.datetime.now()
-
-    connection = connect()
-    cursor = connection.cursor()
-    sql = "INSERT INTO income (sourceAmountId, IncomeCategoryId, currId, date, userId) VALUES (%s, %s, %s, %s, %s)"
-    values = (sourceAmountId, IncomeCategoryId, currencyId, date, userId)
-    cursor.execute(sql, values)
-    connection.commit()
-    print("Income added successfully!")
-    cursor.close()
-    if cursor.rowcount > 0:
-        return "success"
+    if ustVerify(ust) == False:
+        return "Invalid User Security Token"
     else:
-        return "failed"
+        connection = connect()
+        cursor = connection.cursor()
+        sql = "INSERT INTO income (sourceAmountId, IncomeCategoryId, currId, date, userId) VALUES (%s, %s, %s, %s, %s)"
+        values = (sourceAmountId, IncomeCategoryId, currencyId, date, userId)
+        cursor.execute(sql, values)
+        connection.commit()
+        print("Income added successfully!")
+        cursor.close()
+        if cursor.rowcount > 0:
+            return "success"
+        else:
+            return "failed"
 
+# income(20, 1, 1, "52cd1346eb6725617c5e951418e987cab94b165ac094f3de4c450d679d083243") # Debugging only

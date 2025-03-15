@@ -5,14 +5,14 @@ if (!sessionStorage.getItem('sessionId')) {
 }
 
 // MISC
-const userName = sessionStorage.getItem('userName');
-const capitalizedUserName = userName.charAt(0).toUpperCase() + userName.slice(1);
-const date = new Date();
-const day = date.getDate();
-const month = date.toLocaleString('default', { month: 'long' });
-const fullDate = `${day} ${month}`;
-document.getElementById('userName').innerText = capitalizedUserName;
-document.getElementById('fullDate').innerText = fullDate;
+// const userName = sessionStorage.getItem('userName');
+// const capitalizedUserName = userName.charAt(0).toUpperCase() + userName.slice(1);
+// const date = new Date();
+// const day = date.getDate();
+// const month = date.toLocaleString('default', { month: 'long' });
+// const fullDate = `${day} ${month}`;
+// document.getElementById('userName').innerText = capitalizedUserName;
+// document.getElementById('fullDate').innerText = fullDate;
 
 function toggleButton() {
     var stylesheet = document.getElementById('theme-stylesheet');
@@ -70,7 +70,10 @@ function plusIncome() {
                         document.adoptNode(child);
                         incomeExtension.appendChild(child);
                     }
-                    const userID = sessionStorage.getItem('sessionId');
+                    const userID = sessionStorage.getItem('userId');
+                    console.log(userID);
+                    const ust = sessionStorage.getItem('sessionId');
+                    console.log(ust);
                     document.getElementById('incomeForm').addEventListener('submit', async (e) => {
                         e.preventDefault();
                         const sourceName = document.getElementById('sourceName').value.trim();
@@ -80,7 +83,7 @@ function plusIncome() {
                         const response = await fetch(`${apiUrl}apiAddIncome`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                            body: JSON.stringify({ sourceName, amount, incomeCategory, userID })
+                            body: JSON.stringify({ sourceName, amount, incomeCategory, userID, ust })
                         });
 
                         const result = await response.json();

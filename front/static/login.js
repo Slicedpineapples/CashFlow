@@ -38,9 +38,10 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
         // Handle login success
         if (result.message[0] !== null) {
-            sessionStorage.setItem('sessionId', result.message[0]);
+            sessionStorage.setItem('userId', result.message[0]);
+            sessionStorage.setItem('sessionId', result.message[1]);
 
-            document.getElementById('loginMessage').innerText = result.message[1];
+            document.getElementById('loginMessage').innerText = result.message[2];
             await new Promise(resolve => setTimeout(resolve, 1000));
             window.location.href = 'home.html';
         } else {

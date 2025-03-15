@@ -41,12 +41,15 @@ class AddIncomeSchema(Schema):
     amount = fields.Float(required=True)
     incomeCategory = fields.Str(required=True)
     userID = fields.Int(required=True)
+    ust = fields.Str(required=True)
 
 class AddExpenseSchema(Schema):
     itemName = fields.Str(required=True)
     price = fields.Float(required=True)
     expenseCategory = fields.Str(required=True)
     userID = fields.Int(required=True)
+    ust = fields.Str(required=True)
+
 
 class AddAssetSchema(Schema):
     assetCategory = fields.Str(required=True)
@@ -55,17 +58,23 @@ class AddAssetSchema(Schema):
     numberOfItems = fields.Int(required=True)
     location = fields.Str(required=True)
     name = fields.Str(required=True)
+    ust = fields.Str(required=True)
+
 
 class AddLiabilitySchema(Schema):
     liabilityCategory = fields.Str(required=True)
     userID = fields.Int(required=True)
     grossAmount = fields.Float(required=True)
     remainingAmount = fields.Float(required=True)
+    ust = fields.Str(required=True)
+
 
 class ReportSchema(Schema):
     userID = fields.Int(required=True)
     start = fields.Date(required=True)
     end = fields.Date(required=True)
+    ust = fields.Str(required=True)
+
 
 class SummarySchema(Schema):
     userId = fields.Int(required=True)
@@ -73,10 +82,14 @@ class SummarySchema(Schema):
     start = fields.Str(required=True)
     end = fields.Str(required=True)
     currency = fields.Str(required=True)
+    ust = fields.Str(required=True)
+
 
 class UpdateCountrySchema(Schema):
     userId = fields.Int(required=True)
     newCountry = fields.Str(required=True)
+    ust = fields.Str(required=True)
+
 
 # class EmailSchema(Schema):
 #     email = fields.Email(required=True)
@@ -118,7 +131,7 @@ def api_addIncome():
     if sourceID:
         categoryID = incomeCategory(data['incomeCategory'])
         if categoryID:
-            response = income(data['userID'], sourceID, categoryID)
+            response = income(data['userID'], sourceID, categoryID, data['ust'])
             if response == "success":
                 return jsonify({'message': "Income added!"}), 200
             return jsonify({'message': 'Something went wrong at income()'}), 500

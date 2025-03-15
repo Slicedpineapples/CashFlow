@@ -1,8 +1,6 @@
 import requests
 from server import connect
-import hashlib
 from curr import get_currency
-from flask import request, jsonify
 from server import connect
 from utils import userSecurityToken
 
@@ -93,6 +91,7 @@ def login(username, password):
             ust = userSecurityToken() # Generate a new ustoken for the current login session
             print(ust)
             # Update session status to 1
+            userId = result[0]
             update_sql = "UPDATE user SET ustoken = %s, session = TRUE WHERE userName = %s"
             update_values = (ust, username)
             cursor.execute(update_sql, update_values)
@@ -101,7 +100,7 @@ def login(username, password):
 
             message = "Login successful!"
             # return userid, email, counrty, currency, phone, message
-            return ust, message
+            return userId, ust, message
 
         else:
             message = "Invalid username or password"
@@ -154,4 +153,4 @@ def fetchuserdata(ustoken):
             connection.close()
 
         
-# print(fetchuserdata("4c5e4d18bdc60e4450a82740376e961f853c58956f4ebe2114f0675b69372914"))
+# print(fetchuserdata("27282dc6cd05fdc943fd9de126150461aa247fce4748a178cf757b4af2b74f39"))

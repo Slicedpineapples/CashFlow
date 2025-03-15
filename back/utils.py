@@ -141,3 +141,20 @@ def userSecurityToken():
     return hashUST
 
 # print(userSecurityToken()) # Debugging only
+def ustVerify(ustoken):
+    connection = connect()
+    cursor = connection.cursor()
+
+    sql = "SELECT ustoken, session FROM user WHERE ustoken = %s"
+    values = (ustoken,)
+    cursor.execute(sql, values)
+    result = cursor.fetchone()
+    session = result[1] if result else None
+    cursor.close()
+    connection.close()
+    if result and session == 1:
+        return True
+    else:
+        return False
+    
+# print(ustVerify("3dd7aefdf0d4a1cd4a89b5089a9c1c0ca269d3dd020694c0148fcb118f111255")) # Debugging only
