@@ -10,7 +10,7 @@ global message
 message = ""
 
 def signUp(username, email, password, phone):
-    userame = username
+    username = username
     email = email
     password = hashlib.sha256(password.encode()).hexdigest()
     phone = phone
@@ -42,7 +42,7 @@ def signUp(username, email, password, phone):
 
         # Insert new user (using a new cursor)
         sql = "INSERT INTO user (email, phone, region, currency, userName, password) VALUES (%s, %s, %s, %s, %s, %s)"
-        values = (email, phone, region, currency, userName, password)
+        values = (email, phone, region, currency, username, password)
         
         cursor2 = connection.cursor()
         cursor2.execute(sql, values)
