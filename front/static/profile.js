@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("profilePhone").innerText = phone || "Not Set";
         document.getElementById("profileCountry").innerText = country || "Not Set";
         document.getElementById("profileCurrency").innerText = currency || "Not Set";
+        document.getElementById("profileBaseCurrency").innerText = "HUF" || "Not Set";
         document.getElementById("profilePassword").innerText = "********";
     }
 
