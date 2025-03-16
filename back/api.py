@@ -3,7 +3,7 @@ from marshmallow import Schema, fields, validate, ValidationError
 from flask_cors import CORS
 import logging
 from liabilities import liabilities, liabilitiescategory
-from welcome import login, signUp
+from welcome import login, signUp, logout
 from income import income, incomeCategory, incomeSource
 from expenses import expenses, expensesCategory, expensesPrice
 from assets import assetsCategory, assets
@@ -93,6 +93,8 @@ class UpdateCountrySchema(Schema):
 class UserFetchSchema(Schema):
     ust = fields.Str(required=True)
 
+class logoutSchema(Schema):
+    ust = fields.Str(required=True)
 # class EmailSchema(Schema):
 #     email = fields.Email(required=True)
 #     attachment = fields.Str(required=True)
@@ -255,6 +257,15 @@ def userFetchAPI():
         return jsonify({'errors': errors}), 400
 
     response = userFetch(data['ust'])
+    return jsonify({'message': response}), 200
+
+@app.route('/apiLogout', methods=['POST'])
+def logoutAPI():
+    data, errors = validate_input(logoutSchema(), request.get_json())
+    if errors:
+        return jsonify({'errors': errors}), 400
+
+    response = logout(data['ust'])
     return jsonify({'message': response}), 200
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000) 

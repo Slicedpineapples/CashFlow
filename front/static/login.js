@@ -56,7 +56,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
             if (userResponse.ok) {
                 const userData = await userResponse.json();
-                console.log("User Data:", userData);
+                // console.log("User Data:", userData);
                 userDetails = userData.message;
                 // Store user details in sessionStorage
                 sessionStorage.setItem('country', userDetails.country);

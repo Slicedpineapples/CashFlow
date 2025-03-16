@@ -2,7 +2,7 @@ import requests
 from server import connect
 from curr import get_currency
 from server import connect
-from utils import userSecurityToken
+from utils import userSecurityToken, ustVerify
 
 
 global message
@@ -76,7 +76,6 @@ def login(username, password):
     username = username
     password = password # password hashed at the front end
     ust = 0 # default ustoken
-    sessionstatus = 0 # Default session status
 
     try:
         connection = connect()
@@ -89,14 +88,14 @@ def login(username, password):
 
         if result:
             ust = userSecurityToken() # Generate a new ustoken for the current login session
-            print(ust)
+            # print(ust)
             # Update session status to 1
             userId = result[0]
             update_sql = "UPDATE user SET ustoken = %s, session = TRUE WHERE userName = %s"
             update_values = (ust, username)
             cursor.execute(update_sql, update_values)
             connection.commit()
-            print(f"Rows affected: {cursor.rowcount}")  # Debugging: Check if update actually happens
+            # print(f"Rows affected: {cursor.rowcount}")  # Debugging: Check if update actually happens
 
             message = "Login successful!"
             # return userid, email, counrty, currency, phone, message
@@ -119,3 +118,31 @@ def login(username, password):
             cursor.close()
         if connection:
             connection.close()
+
+def logout(ust):
+    if ustVerify(ust) == False:
+        return "Invalid session"
+    else:
+        try:
+            connection = connect()
+            cursor = connection.cursor()
+
+            sql = "UPDATE user SET session = FALSE WHERE ustoken = %s"
+            values = (ust,)
+            cursor.execute(sql, values)
+            connection.commit()
+            message = "Logout successful!"
+
+        except Exception as e:
+            print("Error:", e)
+            message = f"Error: {e}"
+
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+        return message
+
+# print(logout("b4b1de7352942a9787e9211934848925b28f2e8fee7b39974f432a4916e338c4")) # Debugging only
