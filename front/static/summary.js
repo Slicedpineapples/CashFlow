@@ -32,9 +32,7 @@ function summary() {
                     currencyInput.value = storedCurrency;
                 }
 
-                const userID = sessionStorage.getItem('userId');
                 const ust = sessionStorage.getItem('sessionId');
-                const email = sessionStorage.getItem('email');
 
                 // Getting the form data for construction of dates
                 const form = document.getElementById('summaryForm');
@@ -68,7 +66,7 @@ function summary() {
                     const endDate = end.toISOString().split('T')[0];
 
                     // Create JSON data object
-                    const data = { userId: userID, email: email, start: startDate, end: endDate, currency: currency };
+                    const data = { ust: ust, start: startDate, end: endDate, currency: currency };
 
                     // Send data to API
                     const response = await fetch(apiUrl + 'apiGetSummary', {
