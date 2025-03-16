@@ -158,3 +158,27 @@ def ustVerify(ustoken):
         return False
     
 # print(ustVerify("3dd7aefdf0d4a1cd4a89b5089a9c1c0ca269d3dd020694c0148fcb118f111255")) # Debugging only
+def userFetch(ust):
+    if ustVerify(ust) == False:
+        return "Invalid User Seed Token"
+    else:
+        connection = connect()
+        cursor = connection.cursor()
+        sql = "SELECT * FROM user WHERE ustoken = %s"
+        values = (ust,)
+        cursor.execute(sql, values)
+        result = cursor.fetchone()
+        cursor.close()
+        connection.close()
+
+        result = {
+            "userId": result[0],
+            "email": result[1],
+            "phone": result[2],
+            "country": result[3],
+            "currency": result[4],
+            "username": result[5]
+        }
+        return result
+
+# print(userFetch("bdd8a07c295e11292575d89194c2016853259edc00021d164b56a96c5316d2a7")) # Debugging only
