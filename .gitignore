@@ -177,3 +177,7 @@ server.key
 .json
 node_modules/
 .crt
+
+
+#Files of secure serving over https for the backend, to ignore
+.pem

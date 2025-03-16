@@ -14,6 +14,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     let apiUrl = hostname === 'localhost' || hostname === '127.0.0.1'
         ? 'http://127.0.0.1:5000/apiLogin'
         : `http://${hostname}:5000/apiLogin`;
+        console.log(hostname);
 
     try {
         const response = await fetch(apiUrl, {
