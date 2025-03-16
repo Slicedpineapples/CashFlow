@@ -16,7 +16,7 @@ def send_email(ust, attachment_path, end):
         load_dotenv()
         user = userFetch(ust)
         to_email = user['email']
-        print(to_email)
+        # print(to_email)
 
         smtp_server = "smtp.gmail.com"
         smtp_port = 587
