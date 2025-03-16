@@ -27,7 +27,6 @@ def incomeSource(sourceName, amount):
         return None
 
 
-
 def incomeCategory(categoryName):
     # incomeName = input("Enter the category of the income: ")
     incomeName = categoryName
@@ -50,7 +49,7 @@ def incomeCategory(categoryName):
         return None
        
 
-def currency():#Not yet complete
+# def currency():#Not yet complete
     currencyName = input("Enter the currency name: ")
     currency = connect()
 
