@@ -15,42 +15,71 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         ? 'http://127.0.0.1:5000/apiLogin'
         : `http://${hostname}:5000/apiLogin`;
 
-    // console.log("Sending Request:", JSON.stringify({ username, password: hashedPasswordHex })); // Debugging
-
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password: hashedPasswordHex }) // ✅ Fix field name
+            body: JSON.stringify({ username, password: hashedPasswordHex })
         });
 
-        // console.log("Fetch Response:", response);
-
         if (!response.ok) {
-            const errorText = await response.text(); // Get raw error message
+            const errorText = await response.text();
             console.error("Error Response Body:", errorText);
             document.getElementById('loginMessage').innerText = `Login failed: ${response.status} - ${errorText}`;
             return;
         }
 
         const result = await response.json();
-        // console.log("Parsed API Response:", result);
 
-        // Handle login success
+        // If login is successful, fetch user data
         if (result.message[0] !== null) {
-            sessionStorage.setItem('userId', result.message[0]);
-            sessionStorage.setItem('sessionId', result.message[1]);
+            const sessionId = result.message[1];
 
-            document.getElementById('loginMessage').innerText = result.message[2];
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            window.location.href = 'home.html';
+            sessionStorage.setItem('userId', result.message[0]);
+            sessionStorage.setItem('sessionId', sessionId);
+            // console.log("Session ID:", sessionId);
+
+            // Fetch user data from apiUserFetch
+            let userFetchUrl = hostname === 'localhost' || hostname === '127.0.0.1'
+                ? 'http://127.0.0.1:5000/apiUserFetch'
+                : `http://${hostname}:5000/apiUserFetch`;
+
+
+            const userResponse = await fetch(userFetchUrl, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    // 'Authorization': `Bearer ${sessionId}` // Pass session ID for authentication
+                },
+                body: JSON.stringify({ ust: sessionId })
+            });
+
+            if (userResponse.ok) {
+                const userData = await userResponse.json();
+                console.log("User Data:", userData);
+                userDetails = userData.message;
+                // Store user details in sessionStorage
+                sessionStorage.setItem('country', userDetails.country);
+                sessionStorage.setItem('currency', userDetails.currency);
+                sessionStorage.setItem('email', userDetails.email);
+                sessionStorage.setItem('phone', userDetails.phone);
+                sessionStorage.setItem('userName', userDetails.username);
+
+                document.getElementById('loginMessage').innerText = "Login successful!";
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Redirect to home page
+                window.location.href = 'home.html';
+            } else {
+                document.getElementById('loginMessage').innerText = "Failed to fetch user data.";
+            }
         } else {
             document.getElementById('loginMessage').innerText = result.message[1];
             await new Promise(resolve => setTimeout(resolve, 1000));
             window.location.href = 'login.html';
         }
     } catch (error) {
-        // console.error("Fetch Error:", error);
+        console.error("Fetch Error:", error);
         document.getElementById('loginMessage').innerText = "Network error. Please try again.";
     }
 });

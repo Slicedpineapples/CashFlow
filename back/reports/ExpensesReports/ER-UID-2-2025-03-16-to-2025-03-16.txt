@@ -1,0 +1,6 @@
+Expenses report starting 2025-03-16 to 2025-03-16
+Category	Item name	Price	Date
+lost bounty	lost bunty	200	2025-03-16
+
+Total Expenses: {'Total': 200}
+Report generated for user 2 on 2025-03-16 14:34:22

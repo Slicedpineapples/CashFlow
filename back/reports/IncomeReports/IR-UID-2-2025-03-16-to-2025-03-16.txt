@@ -1,0 +1,6 @@
+Income report starting 2025-03-16 to 2025-03-16
+Source	Amount	Category	Date
+joe-s bounty	10000	bounty	2025-03-16
+
+Total Income: {'Total': 10000}
+Report generated for user 2 on 2025-03-16 14:32:53
