@@ -3,7 +3,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from datetime import datetime
 from rawData import expensesRawData, incomeRawData, assetsRawData, liabilitiesRawData
-from utils import ustVerify
+from utils import ustVerify, userFetch
 
 global font, font_bold, font_italic
 font = "Helvetica"
@@ -81,11 +81,14 @@ def generateReport(file_name, income, expenses, assets, liabilities, totals, end
     footer(c, width, height, email)
     c.save()
 
-def apiGenReport(userId, email, start, end, currency, ust):
+def apiGenReport(start, end, currency, ust):
     if ustVerify(ust) == False:
         return "Invalid session"
     else:
-        success = 'Summary report generated successfully.\nWe have sent it to your email.'
+        user = userFetch(ust)
+        userId = user['userId']
+        email = user['email']
+        success = f'Summary report generated successfully.\nWe have sent it to {email}.'
         rawIncome = incomeRawData(userId, start, end, currency)
         rawExpenses = expensesRawData(userId, start, end, currency)
         rawAssets = assetsRawData(userId, start, end, currency)

@@ -10,7 +10,7 @@ from assets import assetsCategory, assets
 from reports import incomeReport, expensesReport, assetsReport, liabilitiesReport
 from pdfGen import apiGenReport
 from mess import send_email
-from utils import Convert, seed, makeDir
+from utils import Convert, seed, makeDir, userFetch
 from update import updateCountry
 
 makeDir() #creting the directories
@@ -77,8 +77,8 @@ class ReportSchema(Schema):
 
 
 class SummarySchema(Schema):
-    userId = fields.Int(required=True)
-    email = fields.Email(required=True)
+    # userId = fields.Int(required=True)
+    # email = fields.Email(required=True) # fetched using userFetch()
     start = fields.Str(required=True)
     end = fields.Str(required=True)
     currency = fields.Str(required=True)
@@ -90,6 +90,8 @@ class UpdateCountrySchema(Schema):
     newCountry = fields.Str(required=True)
     ust = fields.Str(required=True)
 
+class UserFetchSchema(Schema):
+    ust = fields.Str(required=True)
 
 # class EmailSchema(Schema):
 #     email = fields.Email(required=True)
@@ -226,13 +228,13 @@ def getSummary():
     if errors:
         return jsonify({'errors': errors}), 400
  
-    response = apiGenReport(data['userId'], data['email'], data['start'], data['end'], data['currency'], data['ust'])
+    response = apiGenReport(data['start'], data['end'], data['currency'], data['ust'])
     if response:
         endMonth = data['end'].split('-')[1]
         end = Convert(endMonth)+' '+data['end'].split('-')[0]
         # print(end) # Debugging only
         
-        send_email(data['email'], response[0], end) # response[0] is the file path
+        send_email(data['ust'], response[0], end) # response[0] is the file path
         return jsonify({'message': response[1]}), 200 # response[1] is the success message
     return jsonify({'message': 'Something went wrong'}), 500
 
@@ -246,5 +248,13 @@ def updateCountryAPI():
     response = updateCountry(data['userId'], data['newCountry'])
     return jsonify({'message': response}), 200
 
+@app.route('/apiUserFetch', methods=['POST'])
+def userFetchAPI():
+    data, errors = validate_input(UserFetchSchema(), request.get_json())
+    if errors:
+        return jsonify({'errors': errors}), 400
+
+    response = userFetch(data['ust'])
+    return jsonify({'message': response}), 200
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000) 
