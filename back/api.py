@@ -245,7 +245,7 @@ def updateCountryAPI():
     if errors:
         return jsonify({'errors': errors}), 400
 
-    response = updateCountry(data['userId'], data['newCountry'])
+    response = updateCountry(data['userId'], data['newCountry'], data['ust'])
     return jsonify({'message': response}), 200
 
 @app.route('/apiUserFetch', methods=['POST'])

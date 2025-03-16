@@ -105,13 +105,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const profileapiUrl = `${apiUrl}apiUpdateCountry`;
-        const userId = sessionStorage.getItem("sessionId");
+        const userId = sessionStorage.getItem("userId");
+        const ust = sessionStorage.getItem("sessionId");
 
         try {
             const response = await fetch(profileapiUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId, newCountry: newValue })
+                body: JSON.stringify({ userId, newCountry: newValue, ust })
             });
 
             const result = await response.json();
