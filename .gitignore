@@ -169,3 +169,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+# New files to ignore for node server
+server.js
+server.key
+.json
+node_modules/
+.crt
