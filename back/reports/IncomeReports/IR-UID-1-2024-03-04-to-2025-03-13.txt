@@ -1,6 +1,0 @@
-Income report starting 2024-03-04 to 2025-03-13
-Source	Amount	Category	Date
-foul	100	foul	2025-02-10
-
-Total Income: {'Total': 100}
-Report generated for user 1 on 2025-03-15 16:58:54

@@ -1,5 +1,0 @@
-Income report starting 2024-11-25 to 2025-03-14
-Source	Amount	Category	Date
-
-Total Income: {'Total': 0}
-Report generated for user 17 on 2025-03-15 16:58:11

@@ -1,7 +1,0 @@
-Income report starting 2025-03-15 to 2025-03-15
-Source	Amount	Category	Date
-Wolt	25000	Wolt	2025-03-15
-Wolt	25000	Wolt	2025-03-15
-
-Total Income: {'Total': 50000}
-Report generated for user 17 on 2025-03-15 16:34:14
