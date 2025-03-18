@@ -3,6 +3,17 @@ Source	Amount	Category	Date
 test	100	test	2025-03-18
 tako	100	tako	2025-03-18
 tako	100	tako	2025-03-18
+test	100	test	2025-03-18
+test19 from 20	100	test18 from 20	2025-03-18
+tako	100	tako	2025-03-18
+tako	1	tako	2025-03-18
+tako	1	tako	2025-03-18
+tako	9	tako	2025-03-18
+tako kubwa	1	tako kubwa	2025-03-18
+test	1	test	2025-03-18
+tako kubwa	9	test	2025-03-18
+test	20	test	2025-03-18
+test19 from 20	1	test18 from 20	2025-03-18
 
-Total Income: {'Total': 300}
-Report generated for user 20 on 2025-03-18 22:41:48
+Total Income: {'Total': 643}
+Report generated for user 20 on 2025-03-18 23:14:53

@@ -83,6 +83,8 @@ def income(userId, sourceAmountId, IncomeCategoryId, ust):
     IncomeCategoryId = IncomeCategoryId
     currencyId = 1 # for now
     date= datetime.datetime.now()
+    success="Income added successfully!"
+    failed="Income addition failed!"
     if ustVerify(userId, ust) == False:
         print("Error at login: Invalid User Security Token")
         return "Invalid User Security Token"
@@ -96,8 +98,8 @@ def income(userId, sourceAmountId, IncomeCategoryId, ust):
         print("Income added successfully!")
         cursor.close()
         if cursor.rowcount > 0:
-            return "success"
+            return success
         else:
-            return "failed"
+            return failed
 
 # income(20, 1, 1, "52cd1346eb6725617c5e951418e987cab94b165ac094f3de4c450d679d083243") # Debugging only

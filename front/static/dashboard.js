@@ -71,9 +71,9 @@ function plusIncome() {
                         incomeExtension.appendChild(child);
                     }
                     const userID = sessionStorage.getItem('userId');
-                    // console.log(userID);
+                    console.log(userID);
                     const ust = sessionStorage.getItem('sessionId');
-                    // console.log(ust);
+                    console.log(ust);
                     document.getElementById('incomeForm').addEventListener('submit', async (e) => {
                         e.preventDefault();
                         const sourceName = document.getElementById('sourceName').value.trim();

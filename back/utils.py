@@ -161,7 +161,8 @@ def ustVerify(userid, ustoken):
 
 
     if sqluserid == userid and sqlustoken == ustoken and sqlsession == 1:
-        print("User found")
+        # print("User found")
+        print("USVERIFY: Success")
         
         return True  # Token is valid and session is active
 

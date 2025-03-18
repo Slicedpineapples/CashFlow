@@ -139,7 +139,7 @@ def api_addIncome():
         categoryID = incomeCategory(data['incomeCategory'])
         if categoryID:
             response = income(data['userID'], sourceID, categoryID, data['ust'])
-            if response == "success":
+            if response == "Income added successfully!":
                 return jsonify({'message': "Income added!"}), 200
             return jsonify({'message': 'Something went wrong at income()'}), 500
         return jsonify({'message': 'Invalid income category'}), 400
