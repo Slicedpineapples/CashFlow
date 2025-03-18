@@ -6,7 +6,8 @@ from utils import ustVerify
 makeDir() 
 
 def incomeReport(userId, start, end, ust):
-    if ustVerify(ust) == False:
+    if ustVerify(userId, ust) == False:
+        print("Error genereating Income Report :Invalid session")
         return "Invalid session"
     else:
         income = connect()
@@ -51,7 +52,7 @@ def incomeReport(userId, start, end, ust):
         return report_path, report_data, total_income
 
 def expensesReport(userId, start, end, ust):
-    if ustVerify(ust) == False:
+    if ustVerify(userId, ust) == False:
         return "Invalid session"
     else:
         start = start
@@ -100,7 +101,7 @@ def expensesReport(userId, start, end, ust):
         return report_path, report_data, total_expenses
 
 def assetsReport(userId, start, end, ust):
-    if ustVerify(ust) == False:
+    if ustVerify(userId, ust) == False:
         return "Invalid session"
     else:
         userId = userId
@@ -148,7 +149,7 @@ def assetsReport(userId, start, end, ust):
         return report_path, report_data, total_assets
 
 def liabilitiesReport(userId, start, end, ust):
-    if ustVerify(ust) == False:
+    if ustVerify(userId, ust) == False:
         return "Invalid session"
     else:
         userId = userId

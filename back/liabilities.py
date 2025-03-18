@@ -33,7 +33,7 @@ def liabilitiescategory(name, grossAmount, remainingAmount):
     return liabilityCategoryId
 
 def liabilities(liabilityCategoryId, userId, ust):
-    if ustVerify(ust) == False:
+    if ustVerify(userId, ust) == False:
         return "Invalid session"
     else:
         

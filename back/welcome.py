@@ -119,8 +119,9 @@ def login(username, password):
         if connection:
             connection.close()
 
-def logout(ust):
-    if ustVerify(ust) == False:
+def logout(userId, ust):
+    if ustVerify(userId, ust) == False:
+        print("Error at logout: Invalid User Security Token")
         return "Invalid session"
     else:
         try:

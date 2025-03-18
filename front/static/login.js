@@ -4,11 +4,12 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     // Stripping empty spaces from the username
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
+    const hashedPasswordHex = document.getElementById('password').value;
 
     // Hash the password using SHA-256
-    const hashedPassword = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password));
-    const passwordArray = Array.from(new Uint8Array(hashedPassword));
-    const hashedPasswordHex = passwordArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    // const hashedPassword = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password));
+    // const passwordArray = Array.from(new Uint8Array(hashedPassword));
+    // const hashedPasswordHex = passwordArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
     const hostname = window.location.hostname;
     let apiUrl = hostname === 'localhost' || hostname === '127.0.0.1'
@@ -39,6 +40,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             sessionStorage.setItem('userId', result.message[0]);
             sessionStorage.setItem('sessionId', sessionId);
             // console.log("Session ID:", sessionId);
+            const userId = result.message[0];
 
             // Fetch user data from apiUserFetch
             let userFetchUrl = hostname === 'localhost' || hostname === '127.0.0.1'
@@ -52,7 +54,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
                     'Content-Type': 'application/json',
                     // 'Authorization': `Bearer ${sessionId}` // Pass session ID for authentication
                 },
-                body: JSON.stringify({ ust: sessionId })
+                body: JSON.stringify({ userId: userId, ust: sessionId })
             });
 
             if (userResponse.ok) {

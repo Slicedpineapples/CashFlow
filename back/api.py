@@ -82,6 +82,7 @@ class SummarySchema(Schema):
     start = fields.Str(required=True)
     end = fields.Str(required=True)
     currency = fields.Str(required=True)
+    userId = fields.Int(required=True)
     ust = fields.Str(required=True)
 
 
@@ -91,9 +92,11 @@ class UpdateCountrySchema(Schema):
     ust = fields.Str(required=True)
 
 class UserFetchSchema(Schema):
+    userId = fields.Int(required=True)
     ust = fields.Str(required=True)
 
 class logoutSchema(Schema):
+    userId = fields.Int(required=True)
     ust = fields.Str(required=True)
 # class EmailSchema(Schema):
 #     email = fields.Email(required=True)
@@ -230,13 +233,13 @@ def getSummary():
     if errors:
         return jsonify({'errors': errors}), 400
  
-    response = apiGenReport(data['start'], data['end'], data['currency'], data['ust'])
+    response = apiGenReport(data['start'], data['end'], data['currency'], data['userId'], data['ust'])
     if response:
         endMonth = data['end'].split('-')[1]
         end = Convert(endMonth)+' '+data['end'].split('-')[0]
         # print(end) # Debugging only
         
-        send_email(data['ust'], response[0], end) # response[0] is the file path
+        send_email(data['ust'], response[0], end, data['userId']) # response[0] is the file path
         return jsonify({'message': response[1]}), 200 # response[1] is the success message
     return jsonify({'message': 'Something went wrong'}), 500
 
@@ -256,7 +259,7 @@ def userFetchAPI():
     if errors:
         return jsonify({'errors': errors}), 400
 
-    response = userFetch(data['ust'])
+    response = userFetch(data['userId'], data['ust'])
     return jsonify({'message': response}), 200
 
 @app.route('/apiLogout', methods=['POST'])
@@ -265,7 +268,7 @@ def logoutAPI():
     if errors:
         return jsonify({'errors': errors}), 400
 
-    response = logout(data['ust'])
+    response = logout(data['userId'], data['ust'])
     return jsonify({'message': response}), 200
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000) 

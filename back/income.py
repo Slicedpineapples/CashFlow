@@ -83,7 +83,8 @@ def income(userId, sourceAmountId, IncomeCategoryId, ust):
     IncomeCategoryId = IncomeCategoryId
     currencyId = 1 # for now
     date= datetime.datetime.now()
-    if ustVerify(ust) == False:
+    if ustVerify(userId, ust) == False:
+        print("Error at login: Invalid User Security Token")
         return "Invalid User Security Token"
     else:
         connection = connect()

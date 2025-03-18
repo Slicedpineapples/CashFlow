@@ -1,0 +1,24 @@
+Expenses report starting 2025-03-13 to 2025-03-21
+Category	Item name	Price	Date
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+ust	test	1000	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+food	food	1200	2025-03-15
+Kiboko	Ngumi	10000	2025-03-16
+Kiboko	another one	100000	2025-03-16
+Ndege	Aviator	1000	2025-03-16
+
+Total Expenses: {'Total': 130000}
+Report generated for user 20 on 2025-03-16 23:10:30

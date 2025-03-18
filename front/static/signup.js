@@ -6,11 +6,12 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const password = document.getElementById('password').value;
+    const hashedPasswordHex = document.getElementById('password').value;
 
     // Hash the password using SHA-256
-    const hashedPassword = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password));
-    const passwordArray = Array.from(new Uint8Array(hashedPassword));
-    const hashedPasswordHex = passwordArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    // const hashedPassword = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password));
+    // const passwordArray = Array.from(new Uint8Array(hashedPassword));
+    // const hashedPasswordHex = passwordArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
     // Determine the base URL based on the hostname
     const hostname = window.location.hostname;
@@ -24,14 +25,14 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, email, phone, password: hashedPasswordHex }) // ✅ Fix: Hash password before sending
+            body: JSON.stringify({ username, email, phone, password: hashedPasswordHex })
         });
 
         // console.log("Fetch Response:", response);
 
         if (!response.ok) {
             const errorText = await response.text(); // Get raw error message
-            console.error("Error Response Body:", errorText);
+            // console.error("Error Response Body:", errorText);
             document.getElementById('signupMessage').innerText = `Signup failed: ${response.status} - ${errorText}`;
             return;
         }

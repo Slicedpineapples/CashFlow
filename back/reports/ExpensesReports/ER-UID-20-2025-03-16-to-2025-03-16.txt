@@ -1,0 +1,8 @@
+Expenses report starting 2025-03-16 to 2025-03-16
+Category	Item name	Price	Date
+Kiboko	Ngumi	10000	2025-03-16
+Kiboko	another one	100000	2025-03-16
+Ndege	Aviator	1000	2025-03-16
+
+Total Expenses: {'Total': 111000}
+Report generated for user 20 on 2025-03-16 23:10:33

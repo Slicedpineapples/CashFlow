@@ -1,0 +1,12 @@
+Expenses report starting 2025-03-03 to 2025-03-16
+Category	Item name	Price	Date
+food	food	1200	2025-03-15
+drinks	wine and glass	2000	2025-03-15
+work	benzene	5000	2025-03-15
+transport	train ticket	5000	2025-03-15
+lost bounty	lost bunty	200	2025-03-16
+Monopoly	Ndegwa	66765	2025-03-16
+Monopoly	Maandazi	10000	2025-03-16
+
+Total Expenses: {'Total': 90165}
+Report generated for user 2 on 2025-03-16 22:48:25

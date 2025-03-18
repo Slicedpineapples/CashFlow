@@ -6,6 +6,7 @@ from mysql.connector import Error
 import string
 import random
 import hashlib
+import logging
 
 def makeDir():
     folder = 'reports'
@@ -140,26 +141,36 @@ def userSecurityToken():
     hashUST = hashlib.sha256(random_combination.encode()).hexdigest()
     return hashUST
 
-# print(userSecurityToken()) # Debugging only
-def ustVerify(ustoken):
+logging.basicConfig(filename="logs/failed_attempts.log", level=logging.WARNING, format="%(asctime)s - %(message)s")
+
+def ustVerify(userid, ustoken):
+    """Verifies if a given token is valid and belongs to an active session."""
     connection = connect()
     cursor = connection.cursor()
 
-    sql = "SELECT ustoken, session FROM user WHERE ustoken = %s"
+    # Query only active sessions to prevent misuse of old tokens
+    sql = "SELECT id, ustoken, session FROM user WHERE ustoken = %s"
     values = (ustoken,)
     cursor.execute(sql, values)
     result = cursor.fetchone()
-    session = result[1] if result else None
     cursor.close()
     connection.close()
-    if result and session == 1:
-        return True
-    else:
-        return False
-    
-# print(ustVerify("3dd7aefdf0d4a1cd4a89b5089a9c1c0ca269d3dd020694c0148fcb118f111255")) # Debugging only
-def userFetch(ust):
-    if ustVerify(ust) == False:
+    sqluserid = result[0]
+    sqlustoken = result[1]
+    sqlsession = result[2]
+
+
+    if sqluserid == userid and sqlustoken == ustoken and sqlsession == 1:
+        print("User found")
+        
+        return True  # Token is valid and session is active
+
+    # Log failed attempts to track possible brute-force attacks
+    logging.warning(f"Failed token verification attempt for token: {ustoken}")
+    return False
+
+def userFetch(userId, ust):
+    if ustVerify(userId, ust) == False:
         return "Invalid User Seed Token"
     else:
         connection = connect()
@@ -182,3 +193,6 @@ def userFetch(ust):
         return result
 
 # print(userFetch("bdd8a07c295e11292575d89194c2016853259edc00021d164b56a96c5316d2a7")) # Debugging only
+
+# ust = "50803bfedb6422197fe8f0cf535875e9d3eaf75b547fe6adfa3149061421e118"
+# print(ustVerify(22, ust)) # Debugging only

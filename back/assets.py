@@ -27,7 +27,7 @@ def assetsCategory(name, numberOfItems, location):
         return None
 
 def assets(assetCategoryId, userId, value, ust):
-    if ustVerify(ust) == False:
+    if ustVerify(userId, ust) == False:
         return "Invalid session"
     else:
         assetCategoryId = assetCategoryId

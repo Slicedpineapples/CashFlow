@@ -81,11 +81,12 @@ def generateReport(file_name, income, expenses, assets, liabilities, totals, end
     footer(c, width, height, email)
     c.save()
 
-def apiGenReport(start, end, currency, ust):
-    if ustVerify(ust) == False:
+def apiGenReport(start, end, currency, userId, ust):
+    if ustVerify(userId, ust) == False:
+        print("Error at summary: Invalid User Security Token")
         return "Invalid session"
     else:
-        user = userFetch(ust)
+        user = userFetch(userId, ust)
         userId = user['userId']
         email = user['email']
         success = f'Summary report generated successfully.\nWe have sent it to {email}.'

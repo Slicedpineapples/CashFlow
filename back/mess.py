@@ -8,13 +8,13 @@ from email import encoders
 from email.utils import formataddr
 from utils import userFetch, ustVerify
 
-def send_email(ust, attachment_path, end):
+def send_email(ust, attachment_path, end, userId):
     # Load environment variables
-    if ustVerify(ust) == False:
+    if ustVerify(userId, ust) == False:
         return "Invalid session"
     else:
         load_dotenv()
-        user = userFetch(ust)
+        user = userFetch(userId, ust)
         to_email = user['email']
         # print(to_email)
 

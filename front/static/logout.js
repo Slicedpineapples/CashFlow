@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoutButton = document.getElementById('logoutButton');
 
     logoutButton.addEventListener('click', async function () {
+        const userId = sessionStorage.getItem('userId');
         const sessionId = sessionStorage.getItem('sessionId');
+        // console.log(userId);
 
         if (!sessionId) {
             console.error("No session ID found, user might not be logged in.");
@@ -22,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ust: sessionId })
+                body: JSON.stringify({ userId: userId, ust: sessionId })
             });
 
             if (!response.ok) {

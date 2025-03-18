@@ -49,7 +49,7 @@ def expensesCategory(categoryName):
 def expenses(expensesPriceId, expenseCategoryId, userId, ust):
     # expensesPriceId = expensesPrice()
     # expenseCategoryId = expensesCategory()
-    if ustVerify(ust) == False:
+    if ustVerify(userId, ust) == False:
         return "Invalid session"
     else:
         currId = 1 # for now
