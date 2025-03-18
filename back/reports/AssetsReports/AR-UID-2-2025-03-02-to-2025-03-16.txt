@@ -1,0 +1,9 @@
+Assets report starting 2025-03-02 to 2025-03-16
+Location	Asset Name	Value	Number of Items	Date
+Loitoktok	cows	100000	3	2025-03-15
+budapest	honda dio	200000	1	2025-03-15
+budapest	bela	0	0	2025-03-15
+unknown	unkiwn	100	1	2025-03-16
+
+Total Assets: {'Total': 300100}
+Report generated for user 2 on 2025-03-16 23:26:06

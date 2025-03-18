@@ -1,0 +1,6 @@
+Assets report starting 2025-03-01 to 2025-03-16
+Location	Asset Name	Value	Number of Items	Date
+Nyash	Big nyash	100	2	2025-03-16
+
+Total Assets: {'Total': 100}
+Report generated for user 9 on 2025-03-16 23:13:41

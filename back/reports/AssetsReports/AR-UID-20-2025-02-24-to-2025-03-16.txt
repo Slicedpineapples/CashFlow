@@ -1,0 +1,9 @@
+Assets report starting 2025-02-24 to 2025-03-16
+Location	Asset Name	Value	Number of Items	Date
+Loitoktok	cows	1000	3	2025-03-15
+Loitoktok	cows	1000	3	2025-03-15
+Loitoktok	cows	1000	3	2025-03-15
+ust	ust	1000	10	2025-03-15
+
+Total Assets: {'Total': 4000}
+Report generated for user 20 on 2025-03-16 23:26:27
