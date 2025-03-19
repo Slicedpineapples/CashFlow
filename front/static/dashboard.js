@@ -14,37 +14,51 @@ const fullDate = `${day} ${month}`;
 document.getElementById('userName').innerText = capitalizedUserName;
 document.getElementById('fullDate').innerText = fullDate;
 
-function toggleButton() {
-    var stylesheet = document.getElementById('theme-stylesheet');
-    if (stylesheet.getAttribute('href') === '../style/style1.css') {
-        stylesheet.setAttribute('href', '../style/style.css');
-        // Store the choice in localStorage with an expiration date of 365 days
-        var expirationDate = new Date();
-        expirationDate.setDate(expirationDate.getDate() + 365);
-        localStorage.setItem('themeChoice', 'style.css');
-        localStorage.setItem('themeExpiration', expirationDate.toISOString());
-    } else {
-        stylesheet.setAttribute('href', '../style/style1.css');
-        // Remove the stored choice from localStorage
-        localStorage.removeItem('themeChoice');
-        localStorage.removeItem('themeExpiration');
-    }
-}
+document.addEventListener("DOMContentLoaded", () => {
+    const stylesheet = document.getElementById("theme-stylesheet");
 
-// Check if theme choice is stored in localStorage
-var storedThemeChoice = localStorage.getItem('themeChoice');
-var storedThemeExpiration = localStorage.getItem('themeExpiration');
-if (storedThemeChoice && storedThemeExpiration) {
-    var expirationDate = new Date(storedThemeExpiration);
-    if (expirationDate > new Date()) {
-        var stylesheet = document.getElementById('theme-stylesheet');
-        stylesheet.setAttribute('href', '../style/' + storedThemeChoice);
-    } else {
-        // Remove expired theme choice from localStorage
-        localStorage.removeItem('themeChoice');
-        localStorage.removeItem('themeExpiration');
+    // Function to apply the theme
+    function applyTheme(theme) {
+        stylesheet.setAttribute("href", `../style/${theme}`);
     }
-}
+
+    // Detect system theme preference
+    function detectSystemTheme() {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "style1.css" : "style.css";
+    }
+
+    // Initialize the theme based on stored preference or system preference
+    function initializeTheme() {
+        const storedTheme = localStorage.getItem("themeChoice");
+        const systemTheme = detectSystemTheme();
+        applyTheme(storedTheme || systemTheme);
+    }
+
+    // Toggle between themes manually
+    window.toggleButton = function () {
+        const currentTheme = stylesheet.getAttribute("href").includes("style1.css") ? "style.css" : "style1.css";
+        applyTheme(currentTheme);
+        localStorage.setItem("themeChoice", currentTheme);
+    };
+
+    // Listen for system theme changes (Works better on Firefox with explicit re-check)
+    const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    function handleSystemThemeChange(event) {
+        if (!localStorage.getItem("themeChoice")) {
+            applyTheme(event.matches ? "style1.css" : "style.css");
+        }
+    }
+
+    darkModeQuery.addEventListener("change", handleSystemThemeChange);
+
+    // Force initial check on Firefox
+    handleSystemThemeChange(darkModeQuery);
+
+    // Apply theme on page load
+    initializeTheme();
+});
+
 // Sorting hostname for API URL
 const hostname = window.location.hostname;
 let apiUrl;
@@ -71,9 +85,9 @@ function plusIncome() {
                         incomeExtension.appendChild(child);
                     }
                     const userID = sessionStorage.getItem('userId');
-                    console.log(userID);
+                    // console.log(userID);
                     const ust = sessionStorage.getItem('sessionId');
-                    console.log(ust);
+                    // console.log(ust);
                     document.getElementById('incomeForm').addEventListener('submit', async (e) => {
                         e.preventDefault();
                         const sourceName = document.getElementById('sourceName').value.trim();

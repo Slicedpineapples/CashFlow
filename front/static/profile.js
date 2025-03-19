@@ -1,37 +1,51 @@
 if (!sessionStorage.getItem('sessionId')) {
     window.location.href = '/';
 }
-function toggleButton() {
-    var stylesheet = document.getElementById('theme-stylesheet');
-    const currentTheme = stylesheet.getAttribute('href');
-    const newTheme = currentTheme === '../style/style1.css' ? 'style.css' : 'style1.css';
-
-    // Update the theme
-    stylesheet.setAttribute('href', `../style/${newTheme}`);
-    
-    // Set expiration date for 365 days from today
-    var expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 365);
-    localStorage.setItem('themeChoice', newTheme);
-    localStorage.setItem('themeExpiration', expirationDate.toISOString());
-}
-
-// Load stored theme choice if available and not expired
 document.addEventListener("DOMContentLoaded", () => {
-    const storedThemeChoice = localStorage.getItem('themeChoice');
-    const storedThemeExpiration = localStorage.getItem('themeExpiration');
+    const stylesheet = document.getElementById("theme-stylesheet");
 
-    if (storedThemeChoice && storedThemeExpiration) {
-        const expirationDate = new Date(storedThemeExpiration);
-        if (expirationDate > new Date()) {
-            document.getElementById('theme-stylesheet').setAttribute('href', `../style/${storedThemeChoice}`);
-        } else {
-            // Remove expired theme choice
-            localStorage.removeItem('themeChoice');
-            localStorage.removeItem('themeExpiration');
+    // Function to apply the theme
+    function applyTheme(theme) {
+        stylesheet.setAttribute("href", `../style/${theme}`);
+    }
+
+    // Detect system theme preference
+    function detectSystemTheme() {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "style1.css" : "style.css";
+    }
+
+    // Initialize the theme based on stored preference or system preference
+    function initializeTheme() {
+        const storedTheme = localStorage.getItem("themeChoice");
+        const systemTheme = detectSystemTheme();
+        applyTheme(storedTheme || systemTheme);
+    }
+
+    // Toggle between themes manually
+    window.toggleButton = function () {
+        const currentTheme = stylesheet.getAttribute("href").includes("style1.css") ? "style.css" : "style1.css";
+        applyTheme(currentTheme);
+        localStorage.setItem("themeChoice", currentTheme);
+    };
+
+    // Listen for system theme changes (Works better on Firefox with explicit re-check)
+    const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    function handleSystemThemeChange(event) {
+        if (!localStorage.getItem("themeChoice")) {
+            applyTheme(event.matches ? "style1.css" : "style.css");
         }
     }
+
+    darkModeQuery.addEventListener("change", handleSystemThemeChange);
+
+    // Force initial check on Firefox
+    handleSystemThemeChange(darkModeQuery);
+
+    // Apply theme on page load
+    initializeTheme();
 });
+
 
 // Profile Data Loading
 document.addEventListener("DOMContentLoaded", () => {
