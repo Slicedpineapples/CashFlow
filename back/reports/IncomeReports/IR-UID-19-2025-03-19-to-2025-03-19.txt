@@ -1,0 +1,9 @@
+Income report starting 2025-03-19 to 2025-03-19
+Source	Amount	Category	Date
+Wolt	1	Work	2025-03-19
+Wolt	1	test	2025-03-19
+test	20	test	2025-03-19
+Wolt	10	ff	2025-03-19
+
+Total Income: {'Total': 32}
+Report generated for user 19 on 2025-03-19 12:40:37

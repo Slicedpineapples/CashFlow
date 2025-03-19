@@ -1,0 +1,7 @@
+Income report starting 2025-03-12 to 2025-03-19
+Source	Amount	Category	Date
+alert(document.cookie);	10	alert(document.cookie);	2025-03-19
+null	10	null	2025-03-19
+
+Total Income: {'Total': 20}
+Report generated for user 22 on 2025-03-19 12:41:28

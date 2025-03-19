@@ -1,0 +1,7 @@
+Expenses report starting 2025-03-12 to 2025-03-19
+Category	Item name	Price	Date
+kiboko	kiboko	1	2025-03-18
+kiboko	kiboko	12	2025-03-19
+
+Total Expenses: {'Total': 13}
+Report generated for user 22 on 2025-03-19 12:41:47
