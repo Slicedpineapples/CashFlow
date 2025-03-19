@@ -3,7 +3,7 @@ from server import connect
 from utils import ustVerify
 
 def updateCountry(userid, newCountry, ust):
-    if ustVerify(ust) == False:
+    if ustVerify(userid, ust) == False:
         return "Invalid session"
     else:
         try:
