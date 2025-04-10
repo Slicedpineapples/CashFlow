@@ -2,7 +2,7 @@
 ______
 
 
-This application, "CashFlow," is designed to empower you with tools for effective financial tracking and management. It draws inspiration from Robert Kiyosaki's influential work, "The Cashflow Quadrant," a cornerstone of financial literacy. To delve deeper into the concepts that shaped this application, please explore [this link](https://shorturl.at/ZDDqI).
+This application, "CashFlow," is designed to empower you with tools for effective financial tracking and management. It draws inspiration from Robert Kiyosaki's influential work, "The Cashflow Quadrant," a cornerstone of financial literacy. To delve deeper into the concepts that shaped this application, please explore [this link](https://www.richdad.com/cashflow-quadrant-fundamentals).
 
 The user interface, or frontend, of this project is built using the dynamic trio of JavaScript, the structural foundation of HTML, and the stylistic elegance of CSS. Conversely, the backend, the engine driving the application's functionality, is crafted with the robust and versatile Python programming language, leveraging its advanced capabilities to handle complex financial data and operations.
 
@@ -17,7 +17,7 @@ To ensure a smooth and seamless experience, it's crucial that your Python enviro
 7.  **mysql-connector-python** 
 8.  **python-dotenv (version 1.1.0)** 
 
-For more information about pip, see this [guide](https://shorturl.at/10iB9).
+For more information about pip, see this [guide](https://pypi.org/project/pip/).
 
 ## Getting Started with CashFlow
 
