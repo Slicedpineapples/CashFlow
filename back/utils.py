@@ -133,7 +133,6 @@ def seed():
     except Error as err:
         print(f"Something went wrong: {err}")
 
-# seed() # Debugging only
 
 def userSecurityToken():
     characters = string.ascii_letters + string.digits + string.punctuation

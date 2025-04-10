@@ -37,7 +37,3 @@ def get_currency(country_name: str):
     except (IndexError, KeyError, TypeError):
         return f"Error: Unexpected data format received for '{country_name}'."
 
-# Debugging only
-# print(get_currency("keNYA"))  # Expected output: "KES"
-# print(get_currency("Hungary"))  # Expected output: "HUF"
-# print(get_currency("InvalidCountry"))  # Expected error message

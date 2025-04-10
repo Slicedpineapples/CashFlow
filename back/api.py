@@ -13,6 +13,7 @@ from mess import send_email
 from utils import Convert, seed, makeDir, userFetch
 from update import updateCountry
 
+
 makeDir() #creting the directories
 
 seed() # seeding the database 

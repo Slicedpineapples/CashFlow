@@ -181,3 +181,5 @@ node_modules/
 
 #Files of secure serving over https for the backend, to ignore
 .pem
+# Directorie's data
+reports/
