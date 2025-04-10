@@ -183,3 +183,4 @@ node_modules/
 .pem
 # Directorie's data
 reports/
+.idea/

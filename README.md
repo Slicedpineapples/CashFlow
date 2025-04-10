@@ -1,16 +1,55 @@
-# CashFlow
+## CashFlow: Your Personal Financial Journey
+______
 
-A simple application for financial tracking, inspired by Robert Kiyosaki's publication, the Cashflow Quadrant. For more information, visit [this link](https://shorturl.at/ZDDqI).
 
-The frontend of this project is developed in JavaScript as part of a university course requirement. The backend, however, is created out of personal interest and passion; in advanced Python.
+This application, "CashFlow," is designed to empower you with tools for effective financial tracking and management. It draws inspiration from Robert Kiyosaki's influential work, "The Cashflow Quadrant," a cornerstone of financial literacy. To delve deeper into the concepts that shaped this application, please explore [this link](https://shorturl.at/ZDDqI).
 
-To successfully run the application, ensure you have the following Python dependencies installed via pip:
-1. Flask
-2. Marshmallow
-3. Flask-CORS
-4. mysql-connector
-5. Requests
-6. PHP 7.4 FPM
-7. ReportLab
+The user interface, or frontend, of this project is built using the dynamic trio of JavaScript, the structural foundation of HTML, and the stylistic elegance of CSS. Conversely, the backend, the engine driving the application's functionality, is crafted with the robust and versatile Python programming language, leveraging its advanced capabilities to handle complex financial data and operations.
 
-For more information on using pip, see [this guide](https://shorturl.at/10iB9).
+To ensure a smooth and seamless experience, it's crucial that your Python environment is equipped with the following dependencies. These can be easily installed using pip, Python's package installer:
+
+1.  **Flask (version 3.1.0)** 
+2.  **Flask-CORS (version 4.0.1)**
+3.  **Marshmallow (version 3.26.1)** 
+4.  **Requests (version 2.32.3)** 
+5.  **ReportLab (version 4.2.0)** 
+6.  **PHP 7.4 FPM** 
+7.  **mysql-connector-python** 
+8.  **python-dotenv (version 1.1.0)** 
+
+For more information about pip, see this [guide](https://shorturl.at/10iB9).
+
+## Getting Started with CashFlow
+
+Before you can embark on your financial tracking journey, you'll need to set up the application. Here's how:
+______
+
+1.  **Install Python Dependencies:** Navigate to the backend directory and install the required Python packages using pip:
+
+    ```bash
+    cd CashFlow/back
+    pip install -r requirements.txt
+    ```
+______
+2.  **Install Frontend Dependencies:** Next, install the necessary dependencies for the frontend server. This project uses a Node.js server. Install the express package using npm:
+
+    ```bash
+    cd ../front
+    npm install express
+    ```
+______
+**NB: Any web server may be used to run the frontend.**
+______
+
+3.  **Launch the Application:** Once all dependencies are installed, run the `app.main.py` script located in the root directory:
+
+    ```bash
+    python app.main.py
+    ```
+______
+This script will simultaneously start both the backend and frontend servers, making your application accessible through any web browser. Simply navigate to `localhost` or use your device's IP address to access CashFlow.
+______
+______
+______
+______
+______
