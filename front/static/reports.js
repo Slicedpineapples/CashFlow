@@ -1,4 +1,5 @@
 if (!sessionStorage.getItem('sessionId')) {
+    sessionStorage.clear();
     window.location.href = '/login';
 }
 
@@ -24,6 +25,7 @@ function generateReport() {
 function attachFormSubmitHandler() {
     document.getElementById('reportForm').addEventListener('submit', async (e) => {
         e.preventDefault();
+
         const reportType = document.getElementById('reportType').value;
         const start = document.getElementById('start').value;
         const end = document.getElementById('end').value;
@@ -31,20 +33,48 @@ function attachFormSubmitHandler() {
         const ust = sessionStorage.getItem('sessionId');
 
         const hostname = window.location.hostname;
-        let apiUrl;
-        if (hostname === 'localhost' || hostname === '127.0.0.1') {
-            apiUrl = `http://127.0.0.1:5000/apiGet${reportType}Report`;
-        } else {
-            apiUrl = `http://${hostname}:5000/apiGet${reportType}Report`;
-        }
+        const apiUrl = (hostname === 'localhost' || hostname === '127.0.0.1')
+            ? `http://127.0.0.1:5000/apiGet${reportType}Report`
+            : `http://${hostname}:5000/apiGet${reportType}Report`;
 
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ start, end, userID, ust })
-        });
-        const result = await response.json();
-        displayReport(result, reportType);
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ start, end, userID, ust })
+            });
+
+            if (!response.ok) {
+                // console.error(`Server responded with status: ${response.status}`);
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            let result;
+            try {
+                result = await response.json();
+            } catch (parseError) {
+                // console.error("JSON parse failed:", parseError);
+                throw new Error("Invalid JSON in response.");
+            }
+
+            if (
+                result === false ||
+                result.message === 'Invalid token' ||
+                result.message === 'Invalid session'
+            ) {
+                alert("You've been logged out because your session is invalid or active elsewhere.");
+                sessionStorage.clear();
+                window.location.href = '/templates/login.html';
+                return;
+            }
+
+            displayReport(result, reportType);
+        } catch (error) {
+            console.error("Fetch or processing error:", error);
+            alert("An error occurred while fetching the report.");
+            sessionStorage.clear();
+            window.location.href = '/login';
+        }
     });
 }
 
@@ -52,8 +82,6 @@ function displayReport(result, reportType) {
     const reportExtension = document.getElementById('report-extension');
     reportExtension.innerHTML = '';
 
-    // Add close button to clear the generated report
-    // Add close button to clear the generated report
     const closeButton = document.createElement('button');
     const closeIcon = document.createElement('img');
     closeIcon.src = '../assets/close-dark.svg';
@@ -65,7 +93,7 @@ function displayReport(result, reportType) {
         reportExtension.innerHTML = '';
         reportExtension.style.display = 'none';
     });
-    //print button
+
     const printButton = document.createElement('button');
     const printIcon = document.createElement('img');
     printIcon.src = '../assets/print-dark.svg';
@@ -76,7 +104,6 @@ function displayReport(result, reportType) {
     printButton.addEventListener('click', () => {
         printReport();
     });
-    
 
     const tableContainer = document.createElement('div');
     tableContainer.style.marginTop = '50px';
@@ -121,6 +148,7 @@ function displayReport(result, reportType) {
     reportExtension.appendChild(closeButton);
     reportExtension.appendChild(printButton);
     reportExtension.appendChild(tableContainer);
+
     const totalIncomeDiv = document.createElement('div');
     totalIncomeDiv.className = 'total-income';
     totalIncomeDiv.textContent = `Total ${reportType}: ${result.message[2].Total}`;
@@ -145,16 +173,11 @@ function printReport() {
 
 function getHeaders(reportType) {
     switch (reportType) {
-        case 'Income':
-            return ['Income Name', 'Category', 'Amount', 'Date'];
-        case 'Expenses':
-            return ['Expense Name', 'Category', 'Price', 'Date'];
-        case 'Assets':
-            return ['Asset Name', 'Location', 'Quantity', 'Value', 'Date'];
-        case 'Liabilities':
-            return ['Liability Name', 'Gross Amount', 'Remaining Amount', 'Date'];
-        default:
-            return [];
+        case 'Income': return ['Income Name', 'Category', 'Amount', 'Date'];
+        case 'Expenses': return ['Expense Name', 'Category', 'Price', 'Date'];
+        case 'Assets': return ['Asset Name', 'Location', 'Quantity', 'Value', 'Date'];
+        case 'Liabilities': return ['Liability Name', 'Gross Amount', 'Remaining Amount', 'Date'];
+        default: return [];
     }
 }
 
@@ -165,30 +188,26 @@ function getRowHtml(item, reportType) {
                 <td>${item.incomeName}</td>
                 <td>${item.sourceName}</td>
                 <td>${item.amount}</td>
-                <td>${new Date(item.date).toLocaleDateString()}</td>
-            `;
+                <td>${new Date(item.date).toLocaleDateString()}</td>`;
         case 'Expenses':
             return `
                 <td>${item.expenseName}</td>
                 <td>${item.itemName}</td>
                 <td>${item.price}</td>
-                <td>${new Date(item.date).toLocaleDateString()}</td>
-            `;
+                <td>${new Date(item.date).toLocaleDateString()}</td>`;
         case 'Assets':
             return `
                 <td>${item.assetName}</td>
                 <td>${item.location}</td>
                 <td>${item.numberOfItems}</td>
                 <td>${item.value}</td>
-                <td>${new Date(item.date).toLocaleDateString()}</td>
-            `;
+                <td>${new Date(item.date).toLocaleDateString()}</td>`;
         case 'Liabilities':
             return `
                 <td>${item.liabilityName}</td>
                 <td>${item.grossAmount}</td>
                 <td>${item.remainingAmount}</td>
-                <td>${new Date(item.dateDue).toLocaleDateString()}</td>
-            `;
+                <td>${new Date(item.dateDue).toLocaleDateString()}</td>`;
         default:
             return '';
     }

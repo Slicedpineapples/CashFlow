@@ -1,98 +1,102 @@
+// Initial session check
 if (!sessionStorage.getItem('sessionId')) {
     window.location.href = '/login';
-// Sorting hostname for API URL
-const hostname = window.location.hostname;
-let apiUrl;
-if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    apiUrl = 'http://127.0.0.1:5000/';
-} else {
-    apiUrl = `http://${hostname}:5000/`;
-}
 }
 
-function summary() {
-    let summaryExtension = document.getElementById('summary-extension');
+// Set API base URL based on environment
+let summaryHost = window.location.hostname;
+let summaryApiUrl = (summaryHost === 'localhost' || summaryHost === '127.0.0.1')
+    ? 'http://127.0.0.1:5000/'
+    : `http://${summaryHost}:5000/`;
 
+// Global function accessible from HTML onclick
+window.summary = function summary() {
+    const summaryExtension = document.getElementById('summary-extension');
+
+    // Prevent duplicate form loading
     if (!document.getElementById('summaryForm')) {
         fetch('summary.html')
             .then(response => response.text())
             .then(html => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
+
                 for (let child of doc.body.children) {
                     document.adoptNode(child);
                     summaryExtension.appendChild(child);
                 }
 
-                // Auto-fill the currency input field
+                // Autofill stored currency if available
                 const storedCurrency = sessionStorage.getItem('currency');
-                let currencyInput = document.getElementById('Currency');
-
+                const currencyInput = document.getElementById('Currency');
                 if (currencyInput && storedCurrency) {
                     currencyInput.value = storedCurrency;
                 }
+
                 const userId = sessionStorage.getItem('userId');
                 const ust = sessionStorage.getItem('sessionId');
-
-                // Getting the form data for construction of dates
                 const form = document.getElementById('summaryForm');
+
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault();
+
                     const month = document.getElementById('Month').value;
                     const currency = document.getElementById('Currency').value;
 
                     if (!month) {
-                        document.getElementById('summaryMessage').innerText = 'Please select a month';
-                        setTimeout(() => {
-                            document.getElementById('summaryMessage').innerText = '';
-                        }, 1500);
+                        const messageEl = document.getElementById('summaryMessage');
+                        messageEl.innerText = 'Please select a month';
+                        setTimeout(() => messageEl.innerText = '', 1500);
                         return;
                     }
 
-                    // Disable the submit button and change its color to gray
                     const submitButton = form.querySelector('button[type="submit"]');
                     submitButton.disabled = true;
                     submitButton.style.backgroundColor = 'gray';
 
-                    // Date construction
                     const start = new Date(month);
                     start.setDate(1);
                     const end = new Date(start);
                     end.setMonth(end.getMonth() + 1);
                     end.setDate(0);
 
-                    // Formatting the dates
                     const startDate = start.toISOString().split('T')[0];
                     const endDate = end.toISOString().split('T')[0];
 
-                    // Create JSON data object
-                    const data = { ust: ust, start: startDate, end: endDate, currency: currency, userId: userId };
+                    const data = { ust, start: startDate, end: endDate, currency, userId };
 
-                    // Send data to API
-                    const response = await fetch(apiUrl + 'apiGetSummary', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
-                    const result = await response.json();
-                    document.getElementById('summaryMessage').innerText = result.message;
+                    try {
+                        const response = await fetch(summaryApiUrl + 'apiGetSummary', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        });
+
+                        const result = await response.json();
+
+                        // Handle invalid session (e.g., user logged in elsewhere)
+                        if (!result || result.message === 'n' || result === false) {
+                            alert("You have been logged out because your session is active elsewhere.");
+                            sessionStorage.clear();
+                            window.location.href = '/templates/login.html';
+                            return;
+                        }
+
+                        document.getElementById('summaryMessage').innerText = result.message;
+                    } catch (err) {
+                        console.error("Summary fetch error:", err);
+                        document.getElementById('summaryMessage').innerText = 'Failed to load summary.';
+                    }
+
                     setTimeout(() => {
+                        submitButton.disabled = false;
+                        submitButton.style.backgroundColor = '';
                         document.getElementById('summaryMessage').innerText = '';
                     }, 3000);
-
-                    setTimeout(() => {
-                        submitButton.style.backgroundColor = '';
-                        submitButton.disabled = false;
-
-                    }, 3000);
-                    // Re-enable the submit button and reset its color
-
-                    // setTimeout(() => {
-                    //     document.getElementById('summaryForm').reset();
-                    // }, 1000);
                 });
             });
     }
 
+    // Toggle visibility
     summaryExtension.style.display = summaryExtension.style.display === "none" ? "block" : "none";
-}
+};

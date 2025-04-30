@@ -4,55 +4,46 @@ document.addEventListener('DOMContentLoaded', function () {
     logoutButton.addEventListener('click', async function () {
         const userId = sessionStorage.getItem('userId');
         const sessionId = sessionStorage.getItem('sessionId');
-        // console.log(userId);
 
         if (!sessionId) {
-            console.error("No session ID found, user might not be logged in.");
-            // Redirect to login page
+            // console.error("No session ID found, user might not be logged in.");
             window.location.href = 'login.html';
             return;
-            
         }
 
         const hostname = window.location.hostname;
-        let apiUrl = hostname === 'localhost' || hostname === '127.0.0.1'
+        const apiUrl = hostname === 'localhost' || hostname === '127.0.0.1'
             ? 'http://127.0.0.1:5000/apiLogout'
             : `http://${hostname}:5000/apiLogout`;
 
         try {
-
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId: userId, ust: sessionId })
             });
 
-            if (!response.ok) {
-                const errorText = await response.text();
-                // console.error("Error Response Body:", errorText);
-                // alert(`Logout failed: ${response.status} - ${errorText}`);
-                return;
-            }
-
             const result = await response.json();
             // console.log("Logout Response:", result);
 
             if (result.message === "Logout successful!") {
-                // Force clear session storage
                 alert("Logout successful!");
-                sessionStorage.clear();
-
-                // Double-check by removing each item individually
-                Object.keys(sessionStorage).forEach(key => sessionStorage.removeItem(key));
-
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 500);
+            } else if (result.message === "Invalid session") {
+                alert("You have already been logged out or logged in elsewhere.");
             } else {
-                // console.error("Logout failed:", result.message);
-                            }
+                // console.warn("Unexpected response:", result.message);
+            }
+
+            // In both cases above, clear session and redirect
+            sessionStorage.clear();
+            Object.keys(sessionStorage).forEach(key => sessionStorage.removeItem(key));
+            window.location.href = 'login.html';
+
         } catch (error) {
             // console.error("Logout error:", error);
+            alert("Something went wrong during logout. Redirecting...");
+            sessionStorage.clear();
+            window.location.href = 'login.html';
         }
     });
 });
