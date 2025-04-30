@@ -147,27 +147,26 @@ def ustVerify(userid, ustoken):
     connection = connect()
     cursor = connection.cursor()
 
-    # Query only active sessions to prevent misuse of old tokens
     sql = "SELECT id, ustoken, session FROM user WHERE ustoken = %s"
-    values = (ustoken,)
-    cursor.execute(sql, values)
+    cursor.execute(sql, (ustoken,))
     result = cursor.fetchone()
+
     cursor.close()
     connection.close()
-    sqluserid = result[0]
-    sqlustoken = result[1]
-    sqlsession = result[2]
 
+    if result is None:
+        logging.warning(f"Token not found: {ustoken}")
+        return False  # or: return "Invalid token", False
+
+    sqluserid, sqlustoken, sqlsession = result
 
     if sqluserid == userid and sqlustoken == ustoken and sqlsession == 1:
-        # print("User found")
-        print("USVERIFY: Success")
-        
-        return True  # Token is valid and session is active
+        # print("USVERIFY: Success")
+        return True
 
-    # Log failed attempts to track possible brute-force attacks
     logging.warning(f"Failed token verification attempt for token: {ustoken}")
-    return False
+    return False  # or: return "Invalid token", False
+
 
 def userFetch(userId, ust):
     if ustVerify(userId, ust) == False:
@@ -194,5 +193,5 @@ def userFetch(userId, ust):
 
 # print(userFetch("bdd8a07c295e11292575d89194c2016853259edc00021d164b56a96c5316d2a7")) # Debugging only
 
-# ust = "50803bfedb6422197fe8f0cf535875e9d3eaf75b547fe6adfa3149061421e118"
-# print(ustVerify(22, ust)) # Debugging only
+# ust = "a8a0037672e2a1e9022567892bf7e88eba54b5f3c2a40d5dd9403315ab7d88731"
+# print(ustVerify(1, ust)) # Debugging only
